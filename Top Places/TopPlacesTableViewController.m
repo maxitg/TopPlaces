@@ -21,7 +21,12 @@
 
 - (NSArray*)topPlaces
 {
-    if (!_topPlaces) _topPlaces = [FlickrFetcher topPlaces];
+    if (!_topPlaces) {
+        NSArray *unsortedPlaces = [FlickrFetcher topPlaces];
+        _topPlaces = [unsortedPlaces sortedArrayUsingComparator: ^(id obj1, id obj2) {
+            return [[obj1 objectForKey:@"_content"] compare:[obj2 objectForKey:@"_content"] options:NSCaseInsensitiveSearch];
+        }];
+    }
     return _topPlaces;
 }
 
