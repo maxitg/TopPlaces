@@ -14,6 +14,8 @@
 
 @implementation photosInPlaceTableViewController
 
+@synthesize photos = _photos;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -48,26 +50,30 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return [self.photos count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Photo Desciption"];
     
-    // Configure the cell...
+    cell.textLabel.text = [[self.photos objectAtIndex:indexPath.row] objectForKey:@"title"];
+    cell.detailTextLabel.text = [[self.photos objectAtIndex:indexPath.row] valueForKeyPath:@"description._content"];
+    
+        //  No title
+    
+    if ([cell.textLabel.text isEqualToString:@""]) {
+        cell.textLabel.text = cell.detailTextLabel.text;
+        cell.detailTextLabel.text = @"";
+    }
+    
+        //  No description
+    
+    if ([cell.textLabel.text isEqualToString:@""]) {
+        cell.textLabel.text = @"Unknown";
+    }
     
     return cell;
 }

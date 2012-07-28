@@ -8,6 +8,7 @@
 
 #import "TopPlacesTableViewController.h"
 #import "FlickrFetcher.h"
+#import "photosInPlaceTableViewController.h"
 
 @interface TopPlacesTableViewController ()
 
@@ -55,6 +56,13 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"Show Photos In Place"]) {
+        [segue.destinationViewController setPhotos:[FlickrFetcher photosInPlace:[self.topPlaces objectAtIndex:[self.tableView indexPathForCell:sender].row] maxResults:50]];
+    }
 }
 
 #pragma mark - Table view data source
