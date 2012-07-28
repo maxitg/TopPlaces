@@ -58,7 +58,7 @@
         <scene sceneID="Q00-hK-46k">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f8x-FD-iUC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="B6e-RE-Fi9" customClass="photosInPlaceTableViewController" sceneMemberID="viewController">
+                <tableViewController id="B6e-RE-Fi9" customClass="PhotosInPlaceTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="wpn-N1-Q5d">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -172,9 +172,6 @@
     <classes>
         <class className="TopPlacesTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TopPlacesTableViewController.h"/>
-        </class>
-        <class className="photosInPlaceTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/photosInPlaceTableViewController.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

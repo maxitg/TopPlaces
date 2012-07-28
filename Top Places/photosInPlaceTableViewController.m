@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 Maxim Piskunov. All rights reserved.
 //
 
-#import "photosInPlaceTableViewController.h"
+#import "PhotosInPlaceTableViewController.h"
 
-@interface photosInPlaceTableViewController ()
+@interface PhotosInPlaceTableViewController ()
 
 @end
 
-@implementation photosInPlaceTableViewController
+@implementation PhotosInPlaceTableViewController
 
 @synthesize photos = _photos;
 

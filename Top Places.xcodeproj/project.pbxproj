@@ -17,7 +17,7 @@
 		697D73D515C405BB0079962C /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 697D73D315C405BB0079962C /* MainStoryboard_iPad.storyboard */; };
 		697D73E115C406870079962C /* FlickrFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 697D73E015C406870079962C /* FlickrFetcher.m */; };
 		697D73E415C40A740079962C /* TopPlacesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697D73E315C40A740079962C /* TopPlacesTableViewController.m */; };
-		697D73EB15C41E670079962C /* photosInPlaceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697D73EA15C41E670079962C /* photosInPlaceTableViewController.m */; };
+		697D73EB15C41E670079962C /* PhotosInPlaceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697D73EA15C41E670079962C /* PhotosInPlaceTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,7 +39,7 @@
 		697D73E215C40A740079962C /* TopPlacesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopPlacesTableViewController.h; sourceTree = "<group>"; };
 		697D73E315C40A740079962C /* TopPlacesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopPlacesTableViewController.m; sourceTree = "<group>"; };
 		697D73E915C41E660079962C /* photosInPlaceTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = photosInPlaceTableViewController.h; sourceTree = "<group>"; };
-		697D73EA15C41E670079962C /* photosInPlaceTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = photosInPlaceTableViewController.m; sourceTree = "<group>"; };
+		697D73EA15C41E670079962C /* PhotosInPlaceTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotosInPlaceTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +96,7 @@
 				697D73E215C40A740079962C /* TopPlacesTableViewController.h */,
 				697D73E315C40A740079962C /* TopPlacesTableViewController.m */,
 				697D73E915C41E660079962C /* photosInPlaceTableViewController.h */,
-				697D73EA15C41E670079962C /* photosInPlaceTableViewController.m */,
+				697D73EA15C41E670079962C /* PhotosInPlaceTableViewController.m */,
 				697D73C515C405BB0079962C /* Supporting Files */,
 			);
 			path = "Top Places";
@@ -182,7 +182,7 @@
 				697D73CF15C405BB0079962C /* TopPlacesAppDelegate.m in Sources */,
 				697D73E115C406870079962C /* FlickrFetcher.m in Sources */,
 				697D73E415C40A740079962C /* TopPlacesTableViewController.m in Sources */,
-				697D73EB15C41E670079962C /* photosInPlaceTableViewController.m in Sources */,
+				697D73EB15C41E670079962C /* PhotosInPlaceTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,6 +308,7 @@
 				697D73DD15C405BB0079962C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
