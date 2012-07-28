@@ -7,6 +7,8 @@
 //
 
 #import "PhotosInPlaceTableViewController.h"
+#import "ImageViewController.h"
+#import "FlickrFetcher.h"
 
 @interface PhotosInPlaceTableViewController ()
 
@@ -46,6 +48,13 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"Show Photo"]) {
+        [segue.destinationViewController setImageURL:[FlickrFetcher urlForPhoto:[self.photos objectAtIndex:[self.tableView indexPathForCell:sender].row] format:FlickrPhotoFormatLarge]];
+    }
 }
 
 #pragma mark - Table view data source
