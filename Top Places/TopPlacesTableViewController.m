@@ -7,12 +7,23 @@
 //
 
 #import "TopPlacesTableViewController.h"
+#import "FlickrFetcher.h"
 
 @interface TopPlacesTableViewController ()
+
+@property (nonatomic, strong) NSArray* topPlaces;
 
 @end
 
 @implementation TopPlacesTableViewController
+
+@synthesize topPlaces = _topPlaces;
+
+- (NSArray*)topPlaces
+{
+    if (!_topPlaces) _topPlaces = [FlickrFetcher topPlaces];
+    return _topPlaces;
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -26,12 +37,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
 }
 
 - (void)viewDidUnload
@@ -48,26 +54,24 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return [self.topPlaces count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Place Description"];
     
-    // Configure the cell...
+    NSString *placeDescription = [[self.topPlaces objectAtIndex:indexPath.row] valueForKey:@"_content"];
+    NSArray *placeComponents = [placeDescription componentsSeparatedByString:@", "];
+    cell.textLabel.text = [placeComponents objectAtIndex:0];
+    
+    NSRange placeDetailesRange;
+    placeDetailesRange.location = 1;
+    placeDetailesRange.length = [placeComponents count] - 1;
+    NSArray *placeDetailes = [placeComponents subarrayWithRange:placeDetailesRange];
+    cell.detailTextLabel.text = [placeDetailes componentsJoinedByString:@", "];
     
     return cell;
 }
