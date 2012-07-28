@@ -1,0 +1,301 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		697D73BF15C405BB0079962C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697D73BE15C405BB0079962C /* UIKit.framework */; };
+		697D73C115C405BB0079962C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697D73C015C405BB0079962C /* Foundation.framework */; };
+		697D73C315C405BB0079962C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697D73C215C405BB0079962C /* CoreGraphics.framework */; };
+		697D73C915C405BB0079962C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 697D73C715C405BB0079962C /* InfoPlist.strings */; };
+		697D73CB15C405BB0079962C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 697D73CA15C405BB0079962C /* main.m */; };
+		697D73CF15C405BB0079962C /* TopPlacesAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 697D73CE15C405BB0079962C /* TopPlacesAppDelegate.m */; };
+		697D73D215C405BB0079962C /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 697D73D015C405BB0079962C /* MainStoryboard_iPhone.storyboard */; };
+		697D73D515C405BB0079962C /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 697D73D315C405BB0079962C /* MainStoryboard_iPad.storyboard */; };
+		697D73D815C405BB0079962C /* TopPlacesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697D73D715C405BB0079962C /* TopPlacesViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		697D73BA15C405BB0079962C /* Top Places.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Top Places.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		697D73BE15C405BB0079962C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		697D73C015C405BB0079962C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		697D73C215C405BB0079962C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		697D73C615C405BB0079962C /* Top Places-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Top Places-Info.plist"; sourceTree = "<group>"; };
+		697D73C815C405BB0079962C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		697D73CA15C405BB0079962C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		697D73CC15C405BB0079962C /* Top Places-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Top Places-Prefix.pch"; sourceTree = "<group>"; };
+		697D73CD15C405BB0079962C /* TopPlacesAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopPlacesAppDelegate.h; sourceTree = "<group>"; };
+		697D73CE15C405BB0079962C /* TopPlacesAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopPlacesAppDelegate.m; sourceTree = "<group>"; };
+		697D73D115C405BB0079962C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		697D73D415C405BB0079962C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
+		697D73D615C405BB0079962C /* TopPlacesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopPlacesViewController.h; sourceTree = "<group>"; };
+		697D73D715C405BB0079962C /* TopPlacesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopPlacesViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		697D73B715C405BB0079962C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				697D73BF15C405BB0079962C /* UIKit.framework in Frameworks */,
+				697D73C115C405BB0079962C /* Foundation.framework in Frameworks */,
+				697D73C315C405BB0079962C /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		697D73AF15C405BB0079962C = {
+			isa = PBXGroup;
+			children = (
+				697D73C415C405BB0079962C /* Top Places */,
+				697D73BD15C405BB0079962C /* Frameworks */,
+				697D73BB15C405BB0079962C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		697D73BB15C405BB0079962C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				697D73BA15C405BB0079962C /* Top Places.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		697D73BD15C405BB0079962C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				697D73BE15C405BB0079962C /* UIKit.framework */,
+				697D73C015C405BB0079962C /* Foundation.framework */,
+				697D73C215C405BB0079962C /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		697D73C415C405BB0079962C /* Top Places */ = {
+			isa = PBXGroup;
+			children = (
+				697D73CD15C405BB0079962C /* TopPlacesAppDelegate.h */,
+				697D73CE15C405BB0079962C /* TopPlacesAppDelegate.m */,
+				697D73D015C405BB0079962C /* MainStoryboard_iPhone.storyboard */,
+				697D73D315C405BB0079962C /* MainStoryboard_iPad.storyboard */,
+				697D73D615C405BB0079962C /* TopPlacesViewController.h */,
+				697D73D715C405BB0079962C /* TopPlacesViewController.m */,
+				697D73C515C405BB0079962C /* Supporting Files */,
+			);
+			path = "Top Places";
+			sourceTree = "<group>";
+		};
+		697D73C515C405BB0079962C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				697D73C615C405BB0079962C /* Top Places-Info.plist */,
+				697D73C715C405BB0079962C /* InfoPlist.strings */,
+				697D73CA15C405BB0079962C /* main.m */,
+				697D73CC15C405BB0079962C /* Top Places-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		697D73B915C405BB0079962C /* Top Places */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 697D73DB15C405BB0079962C /* Build configuration list for PBXNativeTarget "Top Places" */;
+			buildPhases = (
+				697D73B615C405BB0079962C /* Sources */,
+				697D73B715C405BB0079962C /* Frameworks */,
+				697D73B815C405BB0079962C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Top Places";
+			productName = "Top Places";
+			productReference = 697D73BA15C405BB0079962C /* Top Places.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		697D73B115C405BB0079962C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = TopPlaces;
+				LastUpgradeCheck = 0440;
+				ORGANIZATIONNAME = "Maxim Piskunov";
+			};
+			buildConfigurationList = 697D73B415C405BB0079962C /* Build configuration list for PBXProject "Top Places" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 697D73AF15C405BB0079962C;
+			productRefGroup = 697D73BB15C405BB0079962C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				697D73B915C405BB0079962C /* Top Places */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		697D73B815C405BB0079962C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				697D73C915C405BB0079962C /* InfoPlist.strings in Resources */,
+				697D73D215C405BB0079962C /* MainStoryboard_iPhone.storyboard in Resources */,
+				697D73D515C405BB0079962C /* MainStoryboard_iPad.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		697D73B615C405BB0079962C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				697D73CB15C405BB0079962C /* main.m in Sources */,
+				697D73CF15C405BB0079962C /* TopPlacesAppDelegate.m in Sources */,
+				697D73D815C405BB0079962C /* TopPlacesViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		697D73C715C405BB0079962C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				697D73C815C405BB0079962C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		697D73D015C405BB0079962C /* MainStoryboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				697D73D115C405BB0079962C /* en */,
+			);
+			name = MainStoryboard_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		697D73D315C405BB0079962C /* MainStoryboard_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				697D73D415C405BB0079962C /* en */,
+			);
+			name = MainStoryboard_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		697D73D915C405BB0079962C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		697D73DA15C405BB0079962C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		697D73DC15C405BB0079962C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Top Places/Top Places-Prefix.pch";
+				INFOPLIST_FILE = "Top Places/Top Places-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		697D73DD15C405BB0079962C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Top Places/Top Places-Prefix.pch";
+				INFOPLIST_FILE = "Top Places/Top Places-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		697D73B415C405BB0079962C /* Build configuration list for PBXProject "Top Places" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				697D73D915C405BB0079962C /* Debug */,
+				697D73DA15C405BB0079962C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		697D73DB15C405BB0079962C /* Build configuration list for PBXNativeTarget "Top Places" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				697D73DC15C405BB0079962C /* Debug */,
+				697D73DD15C405BB0079962C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 697D73B115C405BB0079962C /* Project object */;
+}
