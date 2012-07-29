@@ -47,13 +47,14 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"Show Photo"]) {
         [segue.destinationViewController setImageURL:[FlickrFetcher urlForPhoto:[self.photos objectAtIndex:[self.tableView indexPathForCell:sender].row] format:FlickrPhotoFormatLarge]];
+        [segue.destinationViewController setTitle:[[sender textLabel] text]];
     }
 }
 

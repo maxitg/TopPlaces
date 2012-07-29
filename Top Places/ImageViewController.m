@@ -21,9 +21,11 @@
 - (void)reloadImage
 {
     self.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.imageURL]];
+    self.scrollView.zoomScale = 1.;
     self.imageView.frame = CGRectMake(0, 0, self.imageView.image.size.width, self.imageView.image.size.height);
     self.scrollView.contentSize = self.imageView.bounds.size;
-    self.scrollView.minimumZoomScale = MIN(self.scrollView.bounds.size.width / self.imageView.image.size.width, self.scrollView.bounds.size.height / self.imageView.image.size.height);
+    
+    [self viewWillLayoutSubviews];
     self.scrollView.zoomScale = self.scrollView.minimumZoomScale;
 }
 
@@ -42,6 +44,14 @@
         // Custom initialization
     }
     return self;
+}
+
+- (void)viewWillLayoutSubviews
+{
+    self.scrollView.minimumZoomScale = MAX(self.scrollView.bounds.size.width / self.imageView.image.size.width, self.scrollView.bounds.size.height / self.imageView.image.size.height);
+    if (self.scrollView.minimumZoomScale >= 1) self.scrollView.maximumZoomScale = self.scrollView.minimumZoomScale;
+    else self.scrollView.maximumZoomScale = 1.;
+    self.scrollView.zoomScale = MAX(self.scrollView.zoomScale, self.scrollView.minimumZoomScale);
 }
 
 - (void)viewDidLoad
@@ -65,7 +75,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
 #pragma mark UIScrollViewDelegate

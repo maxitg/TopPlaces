@@ -118,7 +118,8 @@
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" id="cPG-Rf-Daz">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="367"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -135,11 +136,11 @@
             </objects>
             <point key="canvasLocation" x="2576" y="-189"/>
         </scene>
-        <!--Table View Controller - Recent Photos-->
+        <!--Photos In Place Table View Controller - Recent Photos-->
         <scene sceneID="YEd-iV-Ozy">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pud-3Y-cPl" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController title="Recent Photos" id="yGy-rf-zeo" sceneMemberID="viewController">
+                <tableViewController title="Recent Photos" id="yGy-rf-zeo" customClass="PhotosInPlaceTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="qTG-vb-Gxn">
                         <rect key="frame" x="0.0" y="20" width="320" height="411"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -55,27 +55,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (NSArray*)placeComponents:(NSDictionary *)place
-{
-    return [[place valueForKey:FLICKR_PLACE_NAME] componentsSeparatedByString:@", "];
-}
-
-- (NSString*)placeName:(NSDictionary *)place
-{
-    return [[self placeComponents:place] objectAtIndex:0];
-}
-
-- (NSString*)placeDetails:(NSDictionary *)place
-{
-    NSArray *placeComponents = [self placeComponents:place];
-    NSRange placeDetailesRange;
-    placeDetailesRange.location = 1;
-    placeDetailesRange.length = [placeComponents count] - 1;
-    NSArray *placeDetailes = [placeComponents subarrayWithRange:placeDetailesRange];
-    return [placeDetailes componentsJoinedByString:@", "];
+    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -83,7 +63,7 @@
     if ([segue.identifier isEqualToString:@"Show Photos In Place"]) {
         NSDictionary *chosenPlace = [self.topPlaces objectAtIndex:[self.tableView indexPathForCell:sender].row];
         [segue.destinationViewController setPhotos:[FlickrFetcher photosInPlace:chosenPlace maxResults:50]];
-        [segue.destinationViewController setTitle:[self placeName:chosenPlace]];
+        [segue.destinationViewController setTitle:[[sender textLabel] text]];
     }
 }
 
@@ -98,8 +78,15 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Place Description"];
     
-    cell.textLabel.text = [self placeName:[self.topPlaces objectAtIndex:indexPath.row]];
-    cell.detailTextLabel.text = [self placeDetails:[self.topPlaces objectAtIndex:indexPath.row]];
+    NSString *placeDescription = [[self.topPlaces objectAtIndex:indexPath.row] valueForKey:@"_content"];
+    NSArray *placeComponents = [placeDescription componentsSeparatedByString:@", "];
+    cell.textLabel.text = [placeComponents objectAtIndex:0];
+    
+    NSRange placeDetailesRange;
+    placeDetailesRange.location = 1;
+    placeDetailesRange.length = [placeComponents count] - 1;
+    NSArray *placeDetailes = [placeComponents subarrayWithRange:placeDetailesRange];
+    cell.detailTextLabel.text = [placeDetailes componentsJoinedByString:@", "];
     
     return cell;
 }
