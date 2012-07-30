@@ -51,16 +51,24 @@
     NSMutableArray *recentPhotos = [[userDefaults valueForKey:DEFAULTS_RECENT] mutableCopy] ? : [[NSMutableArray alloc] init];
     
     BOOL photoIsNew = YES;
-    for (NSDictionary* photoDescription in recentPhotos) {
-        if ([[photoDescription objectForKey:FLICKR_PHOTO_ID] isEqual:[selectedPhotoDescription objectForKey:FLICKR_PHOTO_ID]]) photoIsNew = NO;
+    NSDictionary *oldPhoto;
+    for (NSDictionary *photoDescription in recentPhotos) {
+        if ([[photoDescription objectForKey:FLICKR_PHOTO_ID] isEqual:[selectedPhotoDescription objectForKey:FLICKR_PHOTO_ID]]) {
+            photoIsNew = NO;
+            oldPhoto = photoDescription;
+        }
     }
     
     if (photoIsNew) {
         [recentPhotos insertObject:selectedPhotoDescription atIndex:0];
         if ([recentPhotos count] > 20) [recentPhotos removeLastObject];
-        [userDefaults setValue:[recentPhotos copy] forKey:DEFAULTS_RECENT];
-        [userDefaults synchronize];
+    } else {
+        [recentPhotos removeObject:oldPhoto];
+        [recentPhotos insertObject:selectedPhotoDescription atIndex:0];
     }
+    
+    [userDefaults setValue:[recentPhotos copy] forKey:DEFAULTS_RECENT];
+    [userDefaults synchronize];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
