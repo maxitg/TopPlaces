@@ -10,6 +10,6 @@
 
 @interface PhotoListTableViewController : UITableViewController
 
-@property (nonatomic, strong) NSArray *photos;
+@property (nonatomic, strong) NSArray *photos;  //  model
 
 @end

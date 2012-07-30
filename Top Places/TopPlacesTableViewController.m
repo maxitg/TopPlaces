@@ -12,7 +12,7 @@
 
 @interface TopPlacesTableViewController ()
 
-@property (nonatomic, strong) NSArray* topPlaces;   //  it is a model
+@property (nonatomic, strong) NSArray* topPlaces;
 
 @end
 

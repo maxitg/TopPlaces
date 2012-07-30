@@ -6,13 +6,15 @@
 //  Copyright (c) 2012 Maxim Piskunov. All rights reserved.
 //
 
-#import "ImageViewController.h"
+#import "PhotoViewController.h"
 
-@interface ImageViewController () <UIScrollViewDelegate, UISplitViewControllerDelegate>
+@interface PhotoViewController () <UIScrollViewDelegate, UISplitViewControllerDelegate>
 
 @end
 
-@implementation ImageViewController
+@implementation PhotoViewController
+
+@synthesize photo = _photo;
 
 @synthesize imageURL = _imageURL;
 @synthesize imageView = _imageView;

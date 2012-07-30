@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ImageViewController : UIViewController
+@interface PhotoViewController : UIViewController
+
+@property (nonatomic, strong) UIImage *photo;
 
 @property (nonatomic, strong) NSURL *imageURL;
+
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
