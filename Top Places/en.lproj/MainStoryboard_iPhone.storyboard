@@ -209,7 +209,7 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Ic-zc-fow" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="ydE-t8-OVV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Top Places" id="7LL-bh-p24"/>
+                    <tabBarItem key="tabBarItem" title="Top Places" image="TopPlaces.png" id="7LL-bh-p24"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="yaR-x1-w1Y">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -228,7 +228,7 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vff-dJ-Nrb" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="jOD-tY-XYe" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Recent" id="idU-OX-onS"/>
+                    <tabBarItem key="tabBarItem" title="Recent" image="Recent.png" id="idU-OX-onS"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="as0-3v-CXJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -243,27 +243,10 @@
             <point key="canvasLocation" x="1034" y="491"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="PhotoListTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoListTableViewController.h"/>
-        </class>
-        <class className="PhotoViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="splitViewBarButtonItem" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="titleBarButtonItem" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
-            </relationships>
-        </class>
-        <class className="RecentPhotoListTableViewController" superclassName="PhotoListTableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RecentPhotoListTableViewController.h"/>
-        </class>
-        <class className="TopPlacesTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TopPlacesTableViewController.h"/>
-        </class>
-    </classes>
+    <resources>
+        <image name="Recent.png" width="30" height="30"/>
+        <image name="TopPlaces.png" width="30" height="30"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

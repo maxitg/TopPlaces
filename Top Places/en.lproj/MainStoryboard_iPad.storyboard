@@ -149,7 +149,7 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ISD-pF-WRV" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="LDK-jN-lav" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Top Places" id="BNz-cC-jFG"/>
+                    <tabBarItem key="tabBarItem" title="Top Places" image="TopPlaces.png" id="BNz-cC-jFG"/>
                     <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="6dp-b1-p5j">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -244,7 +244,7 @@
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T08-M4-fEw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="zgh-dZ-THL" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Recent Photos" id="id4-41-lnt"/>
+                    <tabBarItem key="tabBarItem" title="Recent Photos" image="Recent.png" id="id4-41-lnt"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="mKA-9K-J63">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
@@ -259,6 +259,10 @@
             <point key="canvasLocation" x="451" y="-115"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Recent.png" width="30" height="30"/>
+        <image name="TopPlaces.png" width="30" height="30"/>
+    </resources>
     <classes>
         <class className="PhotoListTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoListTableViewController.h"/>

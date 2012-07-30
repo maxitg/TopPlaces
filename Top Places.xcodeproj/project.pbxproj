@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		692C842215C68ADA0019843B /* RecentPhotoListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 692C842115C68ADA0019843B /* RecentPhotoListTableViewController.m */; };
+		692C846115C6B4320019843B /* TopPlaces@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 692C846015C6B4320019843B /* TopPlaces@2x.png */; };
+		692C849D15C6B4FB0019843B /* TopPlaces.png in Resources */ = {isa = PBXBuildFile; fileRef = 692C849C15C6B4FB0019843B /* TopPlaces.png */; };
+		692C849F15C6B5380019843B /* Recent.png in Resources */ = {isa = PBXBuildFile; fileRef = 692C849E15C6B5380019843B /* Recent.png */; };
+		692C84A115C6B5540019843B /* Recent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 692C84A015C6B5540019843B /* Recent@2x.png */; };
 		697D73BF15C405BB0079962C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697D73BE15C405BB0079962C /* UIKit.framework */; };
 		697D73C115C405BB0079962C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697D73C015C405BB0079962C /* Foundation.framework */; };
 		697D73C315C405BB0079962C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697D73C215C405BB0079962C /* CoreGraphics.framework */; };
@@ -25,6 +29,10 @@
 /* Begin PBXFileReference section */
 		692C842015C68ADA0019843B /* RecentPhotoListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentPhotoListTableViewController.h; sourceTree = "<group>"; };
 		692C842115C68ADA0019843B /* RecentPhotoListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentPhotoListTableViewController.m; sourceTree = "<group>"; };
+		692C846015C6B4320019843B /* TopPlaces@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TopPlaces@2x.png"; sourceTree = "<group>"; };
+		692C849C15C6B4FB0019843B /* TopPlaces.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TopPlaces.png; sourceTree = "<group>"; };
+		692C849E15C6B5380019843B /* Recent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Recent.png; sourceTree = "<group>"; };
+		692C84A015C6B5540019843B /* Recent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Recent@2x.png"; sourceTree = "<group>"; };
 		697D73BA15C405BB0079962C /* Top Places.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Top Places.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		697D73BE15C405BB0079962C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		697D73C015C405BB0079962C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -65,6 +73,10 @@
 		697D73AF15C405BB0079962C = {
 			isa = PBXGroup;
 			children = (
+				692C849C15C6B4FB0019843B /* TopPlaces.png */,
+				692C846015C6B4320019843B /* TopPlaces@2x.png */,
+				692C849E15C6B5380019843B /* Recent.png */,
+				692C84A015C6B5540019843B /* Recent@2x.png */,
 				697D73C415C405BB0079962C /* Top Places */,
 				697D73BD15C405BB0079962C /* Frameworks */,
 				697D73BB15C405BB0079962C /* Products */,
@@ -178,6 +190,10 @@
 				697D73C915C405BB0079962C /* InfoPlist.strings in Resources */,
 				697D73D215C405BB0079962C /* MainStoryboard_iPhone.storyboard in Resources */,
 				697D73D515C405BB0079962C /* MainStoryboard_iPad.storyboard in Resources */,
+				692C846115C6B4320019843B /* TopPlaces@2x.png in Resources */,
+				692C849D15C6B4FB0019843B /* TopPlaces.png in Resources */,
+				692C849F15C6B5380019843B /* Recent.png in Resources */,
+				692C84A115C6B5540019843B /* Recent@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
