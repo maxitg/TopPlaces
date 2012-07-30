@@ -17,6 +17,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:YES];
     NSUserDefaults *userDefaults = [[NSUserDefaults alloc] init];
     self.photos = [userDefaults valueForKey:DEFAULTS_RECENT];
 }
