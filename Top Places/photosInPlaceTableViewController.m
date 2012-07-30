@@ -47,7 +47,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    return ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone || interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -69,8 +69,8 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Photo Desciption"];
     
-    cell.textLabel.text = [[self.photos objectAtIndex:indexPath.row] objectForKey:@"title"];
-    cell.detailTextLabel.text = [[self.photos objectAtIndex:indexPath.row] valueForKeyPath:@"description._content"];
+    cell.textLabel.text = [[self.photos objectAtIndex:indexPath.row] objectForKey:FLICKR_PHOTO_TITLE];
+    cell.detailTextLabel.text = [[self.photos objectAtIndex:indexPath.row] valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
     
         //  No title
     
@@ -131,13 +131,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    [[self.splitViewController.viewControllers objectAtIndex:1] setImageURL:[FlickrFetcher urlForPhoto:[self.photos objectAtIndex:indexPath.row] format:FlickrPhotoFormatLarge]];
+    [[self.splitViewController.viewControllers objectAtIndex:1] setTitle:[tableView cellForRowAtIndexPath:indexPath].textLabel.text];
+    [[[self.splitViewController.viewControllers objectAtIndex:1] splitViewPopoverController] dismissPopoverAnimated:YES];
 }
 
 @end
