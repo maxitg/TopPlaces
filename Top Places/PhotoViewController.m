@@ -16,27 +16,15 @@
 
 @synthesize photo = _photo;
 
-@synthesize imageURL = _imageURL;
 @synthesize imageView = _imageView;
 @synthesize scrollView = _scrollView;
 @synthesize toolbar = _toolbar;
 @synthesize titleBarButtonItem = _titleBarButtonItem;
 @synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
+
 @synthesize splitViewPopoverController = _splitViewPopoverController;
 
-- (void)reloadImage
-{
-    self.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:self.imageURL]];
-}
-
-- (void)setImageURL:(NSURL *)imageURL
-{
-    if (imageURL != _imageURL) {
-        _imageURL = imageURL;
-        self.imageView.image = nil;
-        [self viewWillLayoutSubviews];
-    }
-}
+#pragma mark - Setters & getters
 
 - (void)setTitle:(NSString *)title
 {
@@ -44,39 +32,33 @@
     self.titleBarButtonItem.title = title;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (void)setPhoto:(UIImage *)photo
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
+    if (photo != _photo) {
+        _photo = photo;
+        self.imageView.image = photo;
+        [self viewWillLayoutSubviews];
     }
-    return self;
 }
+
+#pragma mark - Lifecycle
 
 - (void)viewWillLayoutSubviews
 {
-    if (!self.imageURL) return;
-    CGFloat initialScale = self.scrollView.zoomScale;
-    if (!self.imageView.image) {
-        [self reloadImage];
-        initialScale = 0.;
-    }
-    
+    if (!self.photo) return;
+    else if (!self.imageView.image) self.imageView.image = self.photo;
     self.scrollView.minimumZoomScale = 1.;
     self.scrollView.maximumZoomScale = 1.;
     self.scrollView.zoomScale = 1.;
-    self.imageView.frame = CGRectMake(0, 0, self.imageView.image.size.width, self.imageView.image.size.height);
+    self.imageView.frame = CGRectMake(0, 0, self.photo.size.width, self.photo.size.height);
     self.scrollView.contentSize = self.imageView.bounds.size;
     
-    CGFloat fullPhotoScale = MIN(self.scrollView.bounds.size.width / self.imageView.image.size.width, self.scrollView.bounds.size.height / self.imageView.image.size.height);
-    CGFloat noExtraSpaceScale = MAX(self.scrollView.bounds.size.width / self.imageView.image.size.width, self.scrollView.bounds.size.height / self.imageView.image.size.height);
+    CGFloat fullPhotoScale = MIN(self.scrollView.bounds.size.width / self.photo.size.width, self.scrollView.bounds.size.height / self.photo.size.height);
+    CGFloat noExtraSpaceScale = MAX(self.scrollView.bounds.size.width / self.photo.size.width, self.scrollView.bounds.size.height / self.photo.size.height);
     
     self.scrollView.minimumZoomScale = fullPhotoScale;
     self.scrollView.maximumZoomScale = MAX(1., noExtraSpaceScale);
-    if (!initialScale) self.scrollView.zoomScale = noExtraSpaceScale;
-    else self.scrollView.zoomScale = MIN(MAX(self.scrollView.minimumZoomScale, initialScale),self.scrollView.maximumZoomScale);
-    
-    self.titleBarButtonItem.title = self.title;
+    self.scrollView.zoomScale = noExtraSpaceScale;
 }
 
 - (void)viewDidLoad
@@ -92,6 +74,7 @@
     [self setScrollView:nil];
     [self setToolbar:nil];
     [self setTitleBarButtonItem:nil];
+    [self setSplitViewBarButtonItem:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
