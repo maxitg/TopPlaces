@@ -70,6 +70,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		692C84A215C6C3A90019843B /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				697D73DE15C406870079962C /* FlickrAPIKey.h */,
+				697D73DF15C406870079962C /* FlickrFetcher.h */,
+				697D73E015C406870079962C /* FlickrFetcher.m */,
+			);
+			name = Libraries;
+			path = "Top Places";
+			sourceTree = "<group>";
+		};
+		692C84A315C6C3DC0019843B /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				697D73E215C40A740079962C /* TopPlacesTableViewController.h */,
+				697D73E315C40A740079962C /* TopPlacesTableViewController.m */,
+				697D73E915C41E660079962C /* PhotoListTableViewController.h */,
+				697D73EA15C41E670079962C /* PhotoListTableViewController.m */,
+				692C842015C68ADA0019843B /* RecentPhotoListTableViewController.h */,
+				692C842115C68ADA0019843B /* RecentPhotoListTableViewController.m */,
+				699DDF5E15C427B900020F4E /* PhotoViewController.h */,
+				699DDF5F15C427B900020F4E /* PhotoViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		692C84A415C6C3EC0019843B /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				697D73D015C405BB0079962C /* MainStoryboard_iPhone.storyboard */,
+				697D73D315C405BB0079962C /* MainStoryboard_iPad.storyboard */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
 		697D73AF15C405BB0079962C = {
 			isa = PBXGroup;
 			children = (
@@ -78,6 +113,7 @@
 				692C849E15C6B5380019843B /* Recent.png */,
 				692C84A015C6B5540019843B /* Recent@2x.png */,
 				697D73C415C405BB0079962C /* Top Places */,
+				692C84A215C6C3A90019843B /* Libraries */,
 				697D73BD15C405BB0079962C /* Frameworks */,
 				697D73BB15C405BB0079962C /* Products */,
 			);
@@ -104,21 +140,8 @@
 		697D73C415C405BB0079962C /* Top Places */ = {
 			isa = PBXGroup;
 			children = (
-				697D73DE15C406870079962C /* FlickrAPIKey.h */,
-				697D73DF15C406870079962C /* FlickrFetcher.h */,
-				697D73E015C406870079962C /* FlickrFetcher.m */,
-				697D73CD15C405BB0079962C /* TopPlacesAppDelegate.h */,
-				697D73CE15C405BB0079962C /* TopPlacesAppDelegate.m */,
-				697D73D015C405BB0079962C /* MainStoryboard_iPhone.storyboard */,
-				699DDF5E15C427B900020F4E /* PhotoViewController.h */,
-				699DDF5F15C427B900020F4E /* PhotoViewController.m */,
-				692C842015C68ADA0019843B /* RecentPhotoListTableViewController.h */,
-				692C842115C68ADA0019843B /* RecentPhotoListTableViewController.m */,
-				697D73D315C405BB0079962C /* MainStoryboard_iPad.storyboard */,
-				697D73E215C40A740079962C /* TopPlacesTableViewController.h */,
-				697D73E315C40A740079962C /* TopPlacesTableViewController.m */,
-				697D73E915C41E660079962C /* PhotoListTableViewController.h */,
-				697D73EA15C41E670079962C /* PhotoListTableViewController.m */,
+				692C84A415C6C3EC0019843B /* UI */,
+				692C84A315C6C3DC0019843B /* View Controllers */,
 				697D73C515C405BB0079962C /* Supporting Files */,
 			);
 			path = "Top Places";
@@ -131,6 +154,8 @@
 				697D73C715C405BB0079962C /* InfoPlist.strings */,
 				697D73CA15C405BB0079962C /* main.m */,
 				697D73CC15C405BB0079962C /* Top Places-Prefix.pch */,
+				697D73CD15C405BB0079962C /* TopPlacesAppDelegate.h */,
+				697D73CE15C405BB0079962C /* TopPlacesAppDelegate.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
