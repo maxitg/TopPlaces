@@ -32,12 +32,20 @@
     self.titleBarButtonItem.title = title;
 }
 
+#define DEFAULTS_RECENT @"Recent Photos"
+
 - (void)setPhoto:(UIImage *)photo
 {
     if (photo != _photo) {
         _photo = photo;
         self.imageView.image = photo;
         [self viewWillLayoutSubviews];
+        
+        NSUserDefaults *userDefaults = [[NSUserDefaults alloc] init];
+        NSMutableArray *recentPhotos = [[userDefaults valueForKey:DEFAULTS_RECENT] mutableCopy];
+        [recentPhotos insertObject:recentPhotos atIndex:0];
+        if ([recentPhotos count] > 20) [recentPhotos removeLastObject];
+        [userDefaults synchronize];
     }
 }
 
