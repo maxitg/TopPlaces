@@ -10,11 +10,11 @@
 #import "ImageViewController.h"
 #import "FlickrFetcher.h"
 
-@interface PhotosInPlaceTableViewController ()
+@interface PhotoListTableViewController ()
 
 @end
 
-@implementation PhotosInPlaceTableViewController
+@implementation PhotoListTableViewController
 
 @synthesize photos = _photos;
 

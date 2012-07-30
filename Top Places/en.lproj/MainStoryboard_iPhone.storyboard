@@ -54,11 +54,11 @@
             </objects>
             <point key="canvasLocation" x="1560" y="-189"/>
         </scene>
-        <!--Photos In Place Table View Controller-->
+        <!--Photo List Table View Controller-->
         <scene sceneID="Q00-hK-46k">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f8x-FD-iUC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="B6e-RE-Fi9" customClass="PhotosInPlaceTableViewController" sceneMemberID="viewController">
+                <tableViewController id="B6e-RE-Fi9" customClass="PhotoListTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="wpn-N1-Q5d">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -136,11 +136,11 @@
             </objects>
             <point key="canvasLocation" x="2576" y="-189"/>
         </scene>
-        <!--Photos In Place Table View Controller - Recent Photos-->
+        <!--Photo List Table View Controller - Recent Photos-->
         <scene sceneID="YEd-iV-Ozy">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pud-3Y-cPl" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController title="Recent Photos" id="yGy-rf-zeo" customClass="PhotosInPlaceTableViewController" sceneMemberID="viewController">
+                <tableViewController title="Recent Photos" id="yGy-rf-zeo" customClass="PhotoListTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="qTG-vb-Gxn">
                         <rect key="frame" x="0.0" y="20" width="320" height="411"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -212,9 +212,6 @@
                 <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
             </relationships>
-        </class>
-        <class className="PhotosInPlaceTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotosInPlaceTableViewController.h"/>
         </class>
         <class className="TopPlacesTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TopPlacesTableViewController.h"/>

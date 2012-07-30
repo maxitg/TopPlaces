@@ -8,7 +8,7 @@
 
 #import "TopPlacesTableViewController.h"
 #import "FlickrFetcher.h"
-#import "photosInPlaceTableViewController.h"
+#import "PhotoListTableViewController.h"
 
 @interface TopPlacesTableViewController ()
 

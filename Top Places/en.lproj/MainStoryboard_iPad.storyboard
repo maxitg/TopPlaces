@@ -98,11 +98,11 @@
             </objects>
             <point key="canvasLocation" x="107" y="-823"/>
         </scene>
-        <!--Photos In Place Table View Controller-->
+        <!--Photo List Table View Controller-->
         <scene sceneID="TZf-n5-TkR">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mUU-tc-uUp" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="fYd-at-WGC" customClass="PhotosInPlaceTableViewController" sceneMemberID="viewController">
+                <tableViewController id="fYd-at-WGC" customClass="PhotoListTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="vtf-ul-p1l">
                         <rect key="frame" x="0.0" y="64" width="320" height="788"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -183,9 +183,6 @@
                 <relationship kind="outlet" name="titleBarButtonItem" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
             </relationships>
-        </class>
-        <class className="PhotosInPlaceTableViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotosInPlaceTableViewController.h"/>
         </class>
         <class className="TopPlacesTableViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TopPlacesTableViewController.h"/>

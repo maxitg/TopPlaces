@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PhotosInPlaceTableViewController : UITableViewController
+@interface PhotoListTableViewController : UITableViewController
 
 @property (nonatomic, strong) NSArray *photos;
 
