@@ -43,7 +43,7 @@
         NSMutableArray *topPlacesMutable = [[NSMutableArray alloc] init];
         for (NSString *countryName in [countries allKeys]) {
             [topPlacesMutable addObject:[[countries objectForKey:countryName] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-                return [[obj1 componentsJoinedByString:@", "] compare:[obj2 componentsJoinedByString:@", "]];
+                return [[[obj1 firstObject] componentsJoinedByString:@", "] compare:[[obj2 firstObject] componentsJoinedByString:@", "]];
             }]];
         }
         
