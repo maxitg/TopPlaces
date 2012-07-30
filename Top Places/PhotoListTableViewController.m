@@ -18,6 +18,16 @@
 
 @synthesize photos = _photos;
 
+#pragma mark - Setters & getters
+
+- (void)setPhotos:(NSArray *)photos
+{
+    if (photos != _photos) {
+        _photos = photos;
+        [self.tableView reloadData];
+    }
+}
+
 #pragma mark - Lifecycle
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -36,6 +46,13 @@
     
     [photoViewController setPhoto:photo];
     [photoViewController setTitle:[[cell textLabel] text]];
+    
+    NSUserDefaults *userDefaults = [[NSUserDefaults alloc] init];
+    NSMutableArray *recentPhotos = [[userDefaults valueForKey:DEFAULTS_RECENT] mutableCopy] ? : [[NSMutableArray alloc] init];
+    [recentPhotos insertObject:selectedPhotoDescription atIndex:0];
+    if ([recentPhotos count] > 20) [recentPhotos removeLastObject];
+    [userDefaults setValue:[recentPhotos copy] forKey:DEFAULTS_RECENT];
+    [userDefaults synchronize];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -56,7 +73,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Photo Desciption"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Photo Description"];
     
     cell.textLabel.text = [[self.photos objectAtIndex:indexPath.row] objectForKey:FLICKR_PHOTO_TITLE];
     cell.detailTextLabel.text = [[self.photos objectAtIndex:indexPath.row] valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		692C842215C68ADA0019843B /* RecentPhotoListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 692C842115C68ADA0019843B /* RecentPhotoListTableViewController.m */; };
 		697D73BF15C405BB0079962C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697D73BE15C405BB0079962C /* UIKit.framework */; };
 		697D73C115C405BB0079962C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697D73C015C405BB0079962C /* Foundation.framework */; };
 		697D73C315C405BB0079962C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 697D73C215C405BB0079962C /* CoreGraphics.framework */; };
@@ -22,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		692C842015C68ADA0019843B /* RecentPhotoListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentPhotoListTableViewController.h; sourceTree = "<group>"; };
+		692C842115C68ADA0019843B /* RecentPhotoListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentPhotoListTableViewController.m; sourceTree = "<group>"; };
 		697D73BA15C405BB0079962C /* Top Places.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Top Places.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		697D73BE15C405BB0079962C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		697D73C015C405BB0079962C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -97,6 +100,8 @@
 				697D73D015C405BB0079962C /* MainStoryboard_iPhone.storyboard */,
 				699DDF5E15C427B900020F4E /* PhotoViewController.h */,
 				699DDF5F15C427B900020F4E /* PhotoViewController.m */,
+				692C842015C68ADA0019843B /* RecentPhotoListTableViewController.h */,
+				692C842115C68ADA0019843B /* RecentPhotoListTableViewController.m */,
 				697D73D315C405BB0079962C /* MainStoryboard_iPad.storyboard */,
 				697D73E215C40A740079962C /* TopPlacesTableViewController.h */,
 				697D73E315C40A740079962C /* TopPlacesTableViewController.m */,
@@ -189,6 +194,7 @@
 				697D73E415C40A740079962C /* TopPlacesTableViewController.m in Sources */,
 				697D73EB15C41E670079962C /* PhotoListTableViewController.m in Sources */,
 				699DDF6015C427B900020F4E /* PhotoViewController.m in Sources */,
+				692C842215C68ADA0019843B /* RecentPhotoListTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

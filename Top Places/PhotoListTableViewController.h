@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define DEFAULTS_RECENT @"Recent Photos"
+
 @interface PhotoListTableViewController : UITableViewController
 
 @property (nonatomic, strong) NSArray *photos;  //  model
