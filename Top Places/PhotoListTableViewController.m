@@ -40,35 +40,42 @@
 - (void)setUpPhotoViewController:(PhotoViewController*)photoViewController forSelectedCell:(UITableViewCell *)cell
 {
     NSDictionary *selectedPhotoDescription = [self.photos objectAtIndex:[self.tableView indexPathForCell:cell].row];
-    NSURL *photoURL = [FlickrFetcher urlForPhoto:selectedPhotoDescription format:FlickrPhotoFormatLarge];
-    NSData *photoData = [NSData dataWithContentsOfURL:photoURL];
-    UIImage *photo = [UIImage imageWithData:photoData];
     
-    [photoViewController setPhoto:photo];
-    [photoViewController setTitle:[[cell textLabel] text]];
-    
-    NSUserDefaults *userDefaults = [[NSUserDefaults alloc] init];
-    NSMutableArray *recentPhotos = [[userDefaults valueForKey:DEFAULTS_RECENT] mutableCopy] ? : [[NSMutableArray alloc] init];
-    
-    BOOL photoIsNew = YES;
-    NSDictionary *oldPhoto;
-    for (NSDictionary *photoDescription in recentPhotos) {
-        if ([[photoDescription objectForKey:FLICKR_PHOTO_ID] isEqual:[selectedPhotoDescription objectForKey:FLICKR_PHOTO_ID]]) {
-            photoIsNew = NO;
-            oldPhoto = photoDescription;
+    dispatch_queue_t photoDownloadQueue = dispatch_queue_create("photo downloader", NULL);
+    dispatch_async(photoDownloadQueue, ^{
+        NSURL *photoURL = [FlickrFetcher urlForPhoto:selectedPhotoDescription format:FlickrPhotoFormatLarge];
+        NSData *photoData = [NSData dataWithContentsOfURL:photoURL];
+        UIImage *photo = [UIImage imageWithData:photoData];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [photoViewController setPhoto:photo];
+        });
+        
+        NSUserDefaults *userDefaults = [[NSUserDefaults alloc] init];
+        NSMutableArray *recentPhotos = [[userDefaults valueForKey:DEFAULTS_RECENT] mutableCopy] ? : [[NSMutableArray alloc] init];
+        
+        BOOL photoIsNew = YES;
+        NSDictionary *oldPhoto;
+        for (NSDictionary *photoDescription in recentPhotos) {
+            if ([[photoDescription objectForKey:FLICKR_PHOTO_ID] isEqual:[selectedPhotoDescription objectForKey:FLICKR_PHOTO_ID]]) {
+                photoIsNew = NO;
+                oldPhoto = photoDescription;
+            }
         }
-    }
+        
+        if (photoIsNew) {
+            [recentPhotos insertObject:selectedPhotoDescription atIndex:0];
+            if ([recentPhotos count] > 20) [recentPhotos removeLastObject];
+        } else {
+            [recentPhotos removeObject:oldPhoto];
+            [recentPhotos insertObject:selectedPhotoDescription atIndex:0];
+        }
+        
+        [userDefaults setValue:[recentPhotos copy] forKey:DEFAULTS_RECENT];
+        [userDefaults synchronize];
+    });
     
-    if (photoIsNew) {
-        [recentPhotos insertObject:selectedPhotoDescription atIndex:0];
-        if ([recentPhotos count] > 20) [recentPhotos removeLastObject];
-    } else {
-        [recentPhotos removeObject:oldPhoto];
-        [recentPhotos insertObject:selectedPhotoDescription atIndex:0];
-    }
-    
-    [userDefaults setValue:[recentPhotos copy] forKey:DEFAULTS_RECENT];
-    [userDefaults synchronize];
+    [photoViewController setTitle:[[cell textLabel] text]];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
