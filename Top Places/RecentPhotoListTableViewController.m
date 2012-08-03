@@ -24,8 +24,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
-    
     NSMutableArray *updatedPhotos = [self.photos mutableCopy];
     [updatedPhotos removeObjectAtIndex:indexPath.row];
     [updatedPhotos insertObject:[self.photos objectAtIndex:indexPath.row] atIndex:0];
@@ -33,7 +31,8 @@
     
     [self.tableView moveRowAtIndexPath:indexPath toIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
-    [self.tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO];
+    
+    [super tableView:tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
 }
 
 @end

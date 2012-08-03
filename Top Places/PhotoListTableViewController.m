@@ -46,33 +46,36 @@
         NSURL *photoURL = [FlickrFetcher urlForPhoto:selectedPhotoDescription format:FlickrPhotoFormatLarge];
         NSData *photoData = [NSData dataWithContentsOfURL:photoURL];
         UIImage *photo = [UIImage imageWithData:photoData];
-        
+    
         dispatch_async(dispatch_get_main_queue(), ^{
-            [photoViewController setPhoto:photo];
+            if ([cell isSelected]) {    //  otherwise we don't need that image anymore
+                [photoViewController setPhoto:photo];
+                
+                NSUserDefaults *userDefaults = [[NSUserDefaults alloc] init];
+                NSMutableArray *recentPhotos = [[userDefaults valueForKey:DEFAULTS_RECENT] mutableCopy] ? : [[NSMutableArray alloc] init];
+                
+                BOOL photoIsNew = YES;
+                NSDictionary *oldPhoto;
+                for (NSDictionary *photoDescription in recentPhotos) {
+                    if ([[photoDescription objectForKey:FLICKR_PHOTO_ID] isEqual:[selectedPhotoDescription objectForKey:FLICKR_PHOTO_ID]]) {
+                        photoIsNew = NO;
+                        oldPhoto = photoDescription;
+                    }
+                }
+                
+                if (photoIsNew) {
+                    [recentPhotos insertObject:selectedPhotoDescription atIndex:0];
+                    if ([recentPhotos count] > 20) [recentPhotos removeLastObject];
+                } else {
+                    [recentPhotos removeObject:oldPhoto];
+                    [recentPhotos insertObject:selectedPhotoDescription atIndex:0];
+                }
+                
+                [userDefaults setValue:[recentPhotos copy] forKey:DEFAULTS_RECENT];
+                [userDefaults synchronize];
+            }
         });
         
-        NSUserDefaults *userDefaults = [[NSUserDefaults alloc] init];
-        NSMutableArray *recentPhotos = [[userDefaults valueForKey:DEFAULTS_RECENT] mutableCopy] ? : [[NSMutableArray alloc] init];
-        
-        BOOL photoIsNew = YES;
-        NSDictionary *oldPhoto;
-        for (NSDictionary *photoDescription in recentPhotos) {
-            if ([[photoDescription objectForKey:FLICKR_PHOTO_ID] isEqual:[selectedPhotoDescription objectForKey:FLICKR_PHOTO_ID]]) {
-                photoIsNew = NO;
-                oldPhoto = photoDescription;
-            }
-        }
-        
-        if (photoIsNew) {
-            [recentPhotos insertObject:selectedPhotoDescription atIndex:0];
-            if ([recentPhotos count] > 20) [recentPhotos removeLastObject];
-        } else {
-            [recentPhotos removeObject:oldPhoto];
-            [recentPhotos insertObject:selectedPhotoDescription atIndex:0];
-        }
-        
-        [userDefaults setValue:[recentPhotos copy] forKey:DEFAULTS_RECENT];
-        [userDefaults synchronize];
     });
     
     [photoViewController setTitle:[[cell textLabel] text]];
