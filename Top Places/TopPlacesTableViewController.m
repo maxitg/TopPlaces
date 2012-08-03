@@ -22,9 +22,10 @@
 
 #pragma mark - Setters & getters
 
-- (NSArray*)topPlaces
+- (void)refresh
 {
-    if (!_topPlaces) {
+    dispatch_queue_t topPlacesDownloadQueue = dispatch_queue_create("top places downloader", NULL);
+    dispatch_async(topPlacesDownloadQueue, ^{
         NSArray *rawPlaces = [FlickrFetcher topPlaces];
         
         //  building NSMutableDictionary of arrays of pairs {location components, place description}
@@ -49,14 +50,32 @@
         
         //  building NSArray of (arrays of pairs {location components, place description}, sorted by place name), sorted by country
         
-        _topPlaces = [topPlacesMutable sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        NSArray *sortedPlaces = [topPlacesMutable sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
             return [[[[obj1 firstObject] firstObject] lastObject] compare:[[[obj2 firstObject] firstObject] lastObject]];
         }];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.topPlaces = sortedPlaces;
+        });
+        
+    });
+    dispatch_release(topPlacesDownloadQueue);
+}
+
+- (void)setTopPlaces:(NSArray *)topPlaces
+{
+    if (_topPlaces != topPlaces) {
+        _topPlaces = topPlaces;
+        [self.tableView reloadData];
     }
-    return _topPlaces;
 }
 
 #pragma mark - Lifecycle
+
+- (void)viewDidLoad
+{
+    [self refresh];
+}
 
 - (void)viewDidUnload
 {
