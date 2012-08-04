@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LoadingViewPresentingTableView.h"
 
-@interface TopPlacesTableViewController : UITableViewController
+@interface TopPlacesTableViewController : LoadingViewPresentingTableView
 
 @end

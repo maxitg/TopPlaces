@@ -9,16 +9,20 @@
 #import "TopPlacesTableViewController.h"
 #import "FlickrFetcher.h"
 #import "PhotoListTableViewController.h"
+#import "LoadingView.h"
 
 @interface TopPlacesTableViewController ()
 
 @property (nonatomic, strong) NSArray* topPlaces;   //  of (arrays of pairs {location components, place description}), sorted by country
+
+@property (nonatomic, strong) LoadingView* loadingView;
 
 @end
 
 @implementation TopPlacesTableViewController
 
 @synthesize topPlaces = _topPlaces;
+@synthesize loadingView = _loadingView;
 
 #pragma mark - Setters & getters
 
@@ -67,10 +71,17 @@
     if (_topPlaces != topPlaces) {
         _topPlaces = topPlaces;
         [self.tableView reloadData];
+        self.isLoading = !self.topPlaces;
     }
 }
 
 #pragma mark - Lifecycle
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.isLoading = !self.topPlaces;
+}
 
 - (void)viewDidLoad
 {

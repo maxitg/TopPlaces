@@ -25,6 +25,7 @@
     if (photos != _photos) {
         _photos = photos;
         [self.tableView reloadData];
+        self.isLoading = !self.photos;
     }
 }
 
@@ -33,6 +34,12 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone || interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+}
+
+- (void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.isLoading = !self.photos;
 }
 
 #pragma mark - Segues
@@ -48,7 +55,7 @@
         UIImage *photo = [UIImage imageWithData:photoData];
     
         dispatch_async(dispatch_get_main_queue(), ^{
-            if ([cell isSelected]) {    //  otherwise we don't need that image anymore
+            if ([cell isSelected]) {    //  caution. causes a bug in recent photos
                 [photoViewController setPhoto:photo];
                 
                 NSUserDefaults *userDefaults = [[NSUserDefaults alloc] init];
