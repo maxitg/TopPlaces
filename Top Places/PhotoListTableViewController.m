@@ -17,6 +17,7 @@
 @implementation PhotoListTableViewController
 
 @synthesize photos = _photos;
+@synthesize spinner = _spinner;
 
 #pragma mark - Setters & getters
 
@@ -26,6 +27,17 @@
         _photos = photos;
         [self.tableView reloadData];
     }
+}
+
+- (UIActivityIndicatorView*)spinner
+{
+    if (!_spinner) {
+        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        spinner.hidesWhenStopped = YES;
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
+        _spinner = spinner;
+    }
+    return _spinner;
 }
 
 #pragma mark - Lifecycle

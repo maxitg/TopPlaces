@@ -111,11 +111,13 @@
         NSIndexPath *senderIndexPath = [self.tableView indexPathForCell:sender];
         NSDictionary *chosenPlace = [[[self.topPlaces objectAtIndex:senderIndexPath.section] objectAtIndex:senderIndexPath.row] lastObject];
         
+        [[segue.destinationViewController spinner] startAnimating];
         dispatch_queue_t photoListDownloadQueue = dispatch_queue_create("photo list downloder", NULL);
         dispatch_async(photoListDownloadQueue, ^{
             NSArray *photos = [FlickrFetcher photosInPlace:chosenPlace maxResults:50];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [segue.destinationViewController setPhotos:photos];
+                [[segue.destinationViewController spinner] stopAnimating];
             });
         });
         dispatch_release(photoListDownloadQueue);

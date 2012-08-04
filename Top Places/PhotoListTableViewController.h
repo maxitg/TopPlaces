@@ -14,4 +14,6 @@
 
 @property (nonatomic, strong) NSArray *photos;  //  model
 
+@property (nonatomic, strong) UIActivityIndicatorView *spinner;
+
 @end
