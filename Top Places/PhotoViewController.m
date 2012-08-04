@@ -41,6 +41,19 @@
     }
 }
 
+- (UIActivityIndicatorView*)spinner
+{
+    if (!_spinner) {
+        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        spinner.hidesWhenStopped = YES;
+        NSMutableArray *toolbarItems = [self.toolbar.items mutableCopy];
+        [toolbarItems addObject:[[UIBarButtonItem alloc] initWithCustomView:spinner]];
+        self.toolbar.items = [toolbarItems copy];
+        _spinner = spinner;
+    }
+    return _spinner;
+}
+
 #pragma mark - Lifecycle
 
 - (void)viewWillLayoutSubviews

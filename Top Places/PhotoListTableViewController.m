@@ -52,6 +52,7 @@
 - (void)setUpPhotoViewController:(PhotoViewController*)photoViewController forSelectedCell:(UITableViewCell *)cell
 {
     NSDictionary *selectedPhotoDescription = [self.photos objectAtIndex:[self.tableView indexPathForCell:cell].row];
+    [photoViewController.spinner startAnimating];
     
     dispatch_queue_t photoDownloadQueue = dispatch_queue_create("photo downloader", NULL);
     dispatch_async(photoDownloadQueue, ^{
@@ -63,6 +64,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([cell isSelected]) {    //  caution. causes a bug in recent photos
                 [photoViewController setPhoto:photo];
+                [photoViewController.spinner stopAnimating];
                 
                 NSUserDefaults *userDefaults = [[NSUserDefaults alloc] init];
                 NSMutableArray *recentPhotos = [[userDefaults valueForKey:DEFAULTS_RECENT] mutableCopy] ? : [[NSMutableArray alloc] init];

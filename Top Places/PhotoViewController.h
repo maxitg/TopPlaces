@@ -20,4 +20,6 @@
 
 @property (nonatomic, weak) UIPopoverController *splitViewPopoverController;
 
+@property (nonatomic, strong) UIActivityIndicatorView *spinner;
+
 @end
