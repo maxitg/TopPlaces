@@ -66,7 +66,8 @@
 - (void)viewWillLayoutSubviews
 {
     if (!self.photo) return;
-    else if (!self.imageView.image) self.imageView.image = self.photo;
+    if (!self.imageView.image) self.imageView.image = self.photo;
+    
     self.scrollView.minimumZoomScale = 1.;
     self.scrollView.maximumZoomScale = 1.;
     self.scrollView.zoomScale = 1.;

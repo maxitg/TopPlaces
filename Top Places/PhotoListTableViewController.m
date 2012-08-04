@@ -49,18 +49,54 @@
 
 #pragma mark - Segues
 
-- (void)addPhotoToCache:(NSDictionary *) photoDescription withData:(NSData *) photoData
+- (NSURL *)photoCacheDirectoryURL
 {
     NSFileManager *fileManager = [[NSFileManager alloc] init];
     NSURL *cachesDirectoryURL = [[fileManager URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask] lastObject];
+    cachesDirectoryURL = [cachesDirectoryURL URLByAppendingPathComponent:@"photos"];
+    if (![fileManager fileExistsAtPath:[cachesDirectoryURL path]]) [fileManager createDirectoryAtPath:[cachesDirectoryURL path] withIntermediateDirectories:NO attributes:nil error:nil];
+    return cachesDirectoryURL;
+}
+
+- (void)addPhotoToCache:(NSDictionary *) photoDescription withData:(NSData *) photoData
+{
+    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    NSURL *cachesDirectoryURL = [self photoCacheDirectoryURL];
+        
     NSURL *photoURL = [cachesDirectoryURL URLByAppendingPathComponent:[photoDescription objectForKey:FLICKR_PHOTO_ID]];
-    if (![fileManager fileExistsAtPath:[photoURL path]]) [photoData writeToURL:photoURL atomically:NO];
+    [photoData writeToURL:photoURL atomically:NO];
+    
+    NSDirectoryEnumerator *cachesDirectoryEnumerator = [fileManager enumeratorAtPath:[cachesDirectoryURL path]];
+    NSString *photoPath;
+    
+    NSMutableArray *cachesDirectoryContent = [[NSMutableArray alloc] init];
+    
+    int totalSize = 0;
+    
+    for (photoPath in cachesDirectoryEnumerator) {
+        photoPath = [[cachesDirectoryURL URLByAppendingPathComponent:photoPath] path];
+        NSDictionary *photoAttributes = [fileManager attributesOfItemAtPath:photoPath error:nil];
+        NSNumber *photoSize = [photoAttributes objectForKey:NSFileSize];
+        NSDate *photoDate = [photoAttributes objectForKey:NSFileModificationDate];
+        
+        [cachesDirectoryContent addObject:[NSDictionary dictionaryWithObjectsAndKeys:photoPath, @"Path", photoSize, @"Size", photoDate, @"Date", nil]];
+        totalSize += [photoSize integerValue];
+    }
+    
+    [cachesDirectoryContent sortUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"Date" ascending:NO]]];
+    
+    while (totalSize > 10485760) {
+        [fileManager removeItemAtPath:[[cachesDirectoryContent lastObject] objectForKey:@"Path"] error:nil];
+        totalSize -= [[[cachesDirectoryContent lastObject] objectForKey:@"Size"] intValue];
+        [cachesDirectoryContent removeLastObject];
+    }
+    
+    NSLog(@"cache size is %gMB", (float)totalSize/1024/1024);
 }
 
 - (NSData *) photoFromCache:(NSDictionary *) photoDescription
 {
-    NSFileManager *fileManager = [[NSFileManager alloc] init];
-    NSURL *cachesDirectoryURL = [[fileManager URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask] lastObject];
+    NSURL *cachesDirectoryURL = [self photoCacheDirectoryURL];
     NSURL *photoURL = [cachesDirectoryURL URLByAppendingPathComponent:[photoDescription objectForKey:FLICKR_PHOTO_ID]];
     NSData *photoData = [[NSData alloc] initWithContentsOfURL:photoURL];
     return photoData;
@@ -79,14 +115,15 @@
         if (!photoData) {
             NSURL *photoURL = [FlickrFetcher urlForPhoto:selectedPhotoDescription format:FlickrPhotoFormatLarge];
             photoData = [NSData dataWithContentsOfURL:photoURL];
+            [self addPhotoToCache:selectedPhotoDescription withData:photoData];
         }
-        UIImage *photo = [UIImage imageWithData:photoData];
-        
-        [self addPhotoToCache:selectedPhotoDescription withData:photoData];
+        __block UIImage *photo = [UIImage imageWithData:photoData];
+        photoData = nil;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([cell isSelected]) {    //  caution. causes a bug in recent photos
                 [photoViewController setPhoto:photo];
+                photo = nil;
                 [photoViewController.spinner stopAnimating];
                 
                 NSUserDefaults *userDefaults = [[NSUserDefaults alloc] init];
