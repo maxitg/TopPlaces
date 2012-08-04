@@ -46,9 +46,16 @@
     if (!_spinner) {
         UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         spinner.hidesWhenStopped = YES;
+        UIBarButtonItem *spinnerBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
+        
+            //  For iPhone
+        self.navigationItem.rightBarButtonItem = spinnerBarButtonItem;
+
+            //  For iPad
         NSMutableArray *toolbarItems = [self.toolbar.items mutableCopy];
-        [toolbarItems addObject:[[UIBarButtonItem alloc] initWithCustomView:spinner]];
+        [toolbarItems addObject:spinnerBarButtonItem];
         self.toolbar.items = [toolbarItems copy];
+        
         _spinner = spinner;
     }
     return _spinner;
