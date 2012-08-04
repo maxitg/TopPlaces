@@ -9,25 +9,23 @@
 #import "TopPlacesTableViewController.h"
 #import "FlickrFetcher.h"
 #import "PhotoListTableViewController.h"
-#import "LoadingView.h"
 
 @interface TopPlacesTableViewController ()
 
 @property (nonatomic, strong) NSArray* topPlaces;   //  of (arrays of pairs {location components, place description}), sorted by country
-
-@property (nonatomic, strong) LoadingView* loadingView;
+@property (nonatomic, strong) UIActivityIndicatorView* spinner;
 
 @end
 
 @implementation TopPlacesTableViewController
 
-@synthesize topPlaces = _topPlaces;
-@synthesize loadingView = _loadingView;
+@synthesize spinner = _spinner;
 
 #pragma mark - Setters & getters
 
 - (void)refresh
 {
+    [self.spinner startAnimating];
     dispatch_queue_t topPlacesDownloadQueue = dispatch_queue_create("top places downloader", NULL);
     dispatch_async(topPlacesDownloadQueue, ^{
         NSArray *rawPlaces = [FlickrFetcher topPlaces];
@@ -60,6 +58,7 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             self.topPlaces = sortedPlaces;
+            [self.spinner stopAnimating];
         });
         
     });
@@ -71,17 +70,21 @@
     if (_topPlaces != topPlaces) {
         _topPlaces = topPlaces;
         [self.tableView reloadData];
-        self.isLoading = !self.topPlaces;
     }
 }
 
-#pragma mark - Lifecycle
-
-- (void)viewWillAppear:(BOOL)animated
+- (UIActivityIndicatorView*)spinner
 {
-    [super viewWillAppear:animated];
-    self.isLoading = !self.topPlaces;
+    if (!_spinner) {
+        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        spinner.hidesWhenStopped = YES;
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
+        _spinner = spinner;
+    }
+    return _spinner;
 }
+
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad
 {

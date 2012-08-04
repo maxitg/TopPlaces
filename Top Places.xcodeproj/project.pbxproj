@@ -24,8 +24,6 @@
 		697D73E415C40A740079962C /* TopPlacesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697D73E315C40A740079962C /* TopPlacesTableViewController.m */; };
 		697D73EB15C41E670079962C /* PhotoListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 697D73EA15C41E670079962C /* PhotoListTableViewController.m */; };
 		699DDF6015C427B900020F4E /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699DDF5F15C427B900020F4E /* PhotoViewController.m */; };
-		699E7F6E15CC63860064B47D /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 699E7F6D15CC63860064B47D /* LoadingView.m */; };
-		699E7F7415CCFD720064B47D /* LoadingViewPresentingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 699E7F7315CCFD720064B47D /* LoadingViewPresentingTableView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,10 +54,6 @@
 		697D73EA15C41E670079962C /* PhotoListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoListTableViewController.m; sourceTree = "<group>"; };
 		699DDF5E15C427B900020F4E /* PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
 		699DDF5F15C427B900020F4E /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
-		699E7F6C15CC63860064B47D /* LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingView.h; sourceTree = "<group>"; };
-		699E7F6D15CC63860064B47D /* LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingView.m; sourceTree = "<group>"; };
-		699E7F7215CCFD720064B47D /* LoadingViewPresentingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingViewPresentingTableView.h; sourceTree = "<group>"; };
-		699E7F7315CCFD720064B47D /* LoadingViewPresentingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingViewPresentingTableView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,8 +84,6 @@
 		692C84A315C6C3DC0019843B /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				699E7F7215CCFD720064B47D /* LoadingViewPresentingTableView.h */,
-				699E7F7315CCFD720064B47D /* LoadingViewPresentingTableView.m */,
 				697D73E215C40A740079962C /* TopPlacesTableViewController.h */,
 				697D73E315C40A740079962C /* TopPlacesTableViewController.m */,
 				697D73E915C41E660079962C /* PhotoListTableViewController.h */,
@@ -109,8 +101,6 @@
 			children = (
 				697D73D015C405BB0079962C /* MainStoryboard_iPhone.storyboard */,
 				697D73D315C405BB0079962C /* MainStoryboard_iPad.storyboard */,
-				699E7F6C15CC63860064B47D /* LoadingView.h */,
-				699E7F6D15CC63860064B47D /* LoadingView.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -246,8 +236,6 @@
 				697D73EB15C41E670079962C /* PhotoListTableViewController.m in Sources */,
 				699DDF6015C427B900020F4E /* PhotoViewController.m in Sources */,
 				692C842215C68ADA0019843B /* RecentPhotoListTableViewController.m in Sources */,
-				699E7F6E15CC63860064B47D /* LoadingView.m in Sources */,
-				699E7F7415CCFD720064B47D /* LoadingViewPresentingTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

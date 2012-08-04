@@ -25,7 +25,6 @@
     if (photos != _photos) {
         _photos = photos;
         [self.tableView reloadData];
-        self.isLoading = !self.photos;
     }
 }
 
@@ -36,12 +35,6 @@
     return ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone || interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
-- (void) viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.isLoading = !self.photos;
-}
-
 #pragma mark - Segues
 
 - (void)setUpPhotoViewController:(PhotoViewController*)photoViewController forSelectedCell:(UITableViewCell *)cell
@@ -50,10 +43,11 @@
     
     dispatch_queue_t photoDownloadQueue = dispatch_queue_create("photo downloader", NULL);
     dispatch_async(photoDownloadQueue, ^{
+        
         NSURL *photoURL = [FlickrFetcher urlForPhoto:selectedPhotoDescription format:FlickrPhotoFormatLarge];
         NSData *photoData = [NSData dataWithContentsOfURL:photoURL];
         UIImage *photo = [UIImage imageWithData:photoData];
-    
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([cell isSelected]) {    //  caution. causes a bug in recent photos
                 [photoViewController setPhoto:photo];

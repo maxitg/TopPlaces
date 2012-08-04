@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LoadingViewPresentingTableView.h"
 
 #define DEFAULTS_RECENT @"Recent Photos"
 
-@interface PhotoListTableViewController : LoadingViewPresentingTableView
+@interface PhotoListTableViewController : UITableViewController
 
 @property (nonatomic, strong) NSArray *photos;  //  model
 
