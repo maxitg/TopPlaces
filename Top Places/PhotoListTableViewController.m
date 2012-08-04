@@ -49,6 +49,23 @@
 
 #pragma mark - Segues
 
+- (void)addPhotoToCache:(NSDictionary *) photoDescription withData:(NSData *) photoData
+{
+    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    NSURL *cachesDirectoryURL = [[fileManager URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask] lastObject];
+    NSURL *photoURL = [cachesDirectoryURL URLByAppendingPathComponent:[photoDescription objectForKey:FLICKR_PHOTO_ID]];
+    if (![fileManager fileExistsAtPath:[photoURL path]]) [photoData writeToURL:photoURL atomically:NO];
+}
+
+- (NSData *) photoFromCache:(NSDictionary *) photoDescription
+{
+    NSFileManager *fileManager = [[NSFileManager alloc] init];
+    NSURL *cachesDirectoryURL = [[fileManager URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask] lastObject];
+    NSURL *photoURL = [cachesDirectoryURL URLByAppendingPathComponent:[photoDescription objectForKey:FLICKR_PHOTO_ID]];
+    NSData *photoData = [[NSData alloc] initWithContentsOfURL:photoURL];
+    return photoData;
+}
+
 - (void)setUpPhotoViewController:(PhotoViewController*)photoViewController forSelectedCell:(UITableViewCell *)cell
 {
     NSDictionary *selectedPhotoDescription = [self.photos objectAtIndex:[self.tableView indexPathForCell:cell].row];
@@ -57,9 +74,15 @@
     dispatch_queue_t photoDownloadQueue = dispatch_queue_create("photo downloader", NULL);
     dispatch_async(photoDownloadQueue, ^{
         
-        NSURL *photoURL = [FlickrFetcher urlForPhoto:selectedPhotoDescription format:FlickrPhotoFormatLarge];
-        NSData *photoData = [NSData dataWithContentsOfURL:photoURL];
+        NSData *photoData = [self photoFromCache:selectedPhotoDescription];
+        
+        if (!photoData) {
+            NSURL *photoURL = [FlickrFetcher urlForPhoto:selectedPhotoDescription format:FlickrPhotoFormatLarge];
+            photoData = [NSData dataWithContentsOfURL:photoURL];
+        }
         UIImage *photo = [UIImage imageWithData:photoData];
+        
+        [self addPhotoToCache:selectedPhotoDescription withData:photoData];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([cell isSelected]) {    //  caution. causes a bug in recent photos
