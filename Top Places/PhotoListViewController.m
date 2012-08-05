@@ -52,6 +52,14 @@
     return coordinate;
 }
 
+- (UIImage *)thumbnailForPhoto:(NSDictionary *)photo
+{
+    NSURL *thumbnailURL = [FlickrFetcher urlForPhoto:photo format:FlickrPhotoFormatSquare];
+    NSLog(@"Queuering %@", thumbnailURL);
+    NSData *thumbnailData = [NSData dataWithContentsOfURL:thumbnailURL];
+    return [UIImage imageWithData:thumbnailData];
+}
+
 #pragma mark - Setters & getters
 
 - (void)setPhotos:(NSArray *)photos
@@ -250,6 +258,21 @@
     cell.textLabel.text = [self titleForPhoto:selectedPhoto];
     cell.detailTextLabel.text = [self subtitleForPhoto:selectedPhoto];
     
+//    cell.imageView.image = [UIImage imageNamed:@"TopPlaces.png"];
+    cell.imageView.image = nil;
+
+    dispatch_queue_t thumbnailDownloadQueue = dispatch_queue_create("thumbnail downloader", NULL);
+    dispatch_async(thumbnailDownloadQueue, ^{
+        UIImage *thumbnail = [self thumbnailForPhoto:selectedPhoto];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([[tableView indexPathForCell:cell] isEqual:indexPath]) {
+                cell.imageView.image = thumbnail;
+                [cell layoutSubviews];
+            }
+        });
+    });
+    dispatch_release(thumbnailDownloadQueue);
+    
     return cell;
 }
 
@@ -289,10 +312,7 @@
     
     dispatch_queue_t thumbnailDownloadQueue = dispatch_queue_create("thumbnail downloader", NULL);
     dispatch_async(thumbnailDownloadQueue, ^{
-        NSURL *thumbnailURL = [FlickrFetcher urlForPhoto:photo format:FlickrPhotoFormatSquare];
-        NSLog(@"Queuering %@", thumbnailURL);
-        NSData *thumbnailData = [NSData dataWithContentsOfURL:thumbnailURL];
-        UIImage *thumbnail = [UIImage imageWithData:thumbnailData];
+        UIImage *thumbnail = [self thumbnailForPhoto:photo];
         dispatch_async(dispatch_get_main_queue(), ^{
             [(UIImageView *)aView.leftCalloutAccessoryView setImage:thumbnail];
         });
