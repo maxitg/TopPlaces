@@ -37,7 +37,7 @@
         NSMutableArray *annotations = [[NSMutableArray alloc] init];
         for (int i = 0; i < [topPlaces count]; i++) {
             for (NSDictionary *place in [[topPlaces objectAtIndex:i] objectForKey:@"Places"]) {
-                [annotations addObject:[Annotation annotationWithTitle:[self cityForPlace:place] subtitle:[self placeDetailsForPlace:place] coordinate:[self coordinateForPlace:place]]];
+                [annotations addObject:[Annotation annotationWithTitle:[self cityForPlace:place] subtitle:[self placeDetailsForPlace:place] coordinate:[self coordinateForPlace:place] forObject:place]];
             }
         }
         [self.mapView addAnnotations:annotations];

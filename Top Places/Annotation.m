@@ -15,12 +15,13 @@
 @synthesize subtitle = _subtitle;
 @synthesize coordinate = _coordinate;
 
-+ (Annotation *)annotationWithTitle:(NSString *)title subtitle:(NSString *)subtitle coordinate:(CLLocationCoordinate2D)coordinate
++ (Annotation *)annotationWithTitle:(NSString *)title subtitle:(NSString *)subtitle coordinate:(CLLocationCoordinate2D)coordinate forObject:(id)anObject
 {
     Annotation *annotation = [[Annotation alloc] init];
     annotation.title = title;
     annotation.subtitle = subtitle;
     annotation.coordinate = coordinate;
+    annotation.referenceObject = anObject;
     return annotation;
 }
 

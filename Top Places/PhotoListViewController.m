@@ -13,7 +13,7 @@
 
 #define MAX_CACHE_SIZE 10485760
 
-@interface PhotoListViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface PhotoListViewController () <UITableViewDataSource, UITableViewDelegate, MKMapViewDelegate>
 
 @end
 
@@ -63,7 +63,7 @@
         [self.mapView removeAnnotations:self.mapView.annotations];
         NSMutableArray *annotations = [[NSMutableArray alloc] init];
         for (NSDictionary *photo in self.photos) {
-            [annotations addObject:[Annotation annotationWithTitle:[self titleForPhoto:photo] subtitle:[self subtitleForPhoto:photo] coordinate:[self coordinateForPhoto:photo]]];
+            [annotations addObject:[Annotation annotationWithTitle:[self titleForPhoto:photo] subtitle:[self subtitleForPhoto:photo] coordinate:[self coordinateForPhoto:photo] forObject:photo]];
         }
         [self.mapView addAnnotations:annotations];
     }
@@ -90,6 +90,7 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.mapView.delegate = self;
 }
 
 - (void)viewDidUnload
@@ -246,6 +247,41 @@
         [self setUpPhotoViewController:photoViewController forSelectedCell:[self.tableView cellForRowAtIndexPath:indexPath]];
         [[photoViewController splitViewPopoverController] dismissPopoverAnimated:YES];
     }
+}
+
+#pragma mark - MKMapViewDelegate
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    MKAnnotationView *aView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"Place Annotation"];
+    if (!aView) {
+        aView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Place Annotation"];
+        aView.canShowCallout = YES;
+        aView.leftCalloutAccessoryView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        aView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    }
+    
+    aView.annotation = annotation;
+    [(UIImageView *)aView.leftCalloutAccessoryView setImage:nil];
+    
+    return aView;
+}
+
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)aView
+{
+    Annotation *annotation = aView.annotation;
+    NSDictionary *photo = annotation.referenceObject;
+    
+    dispatch_queue_t thumbnailDownloadQueue = dispatch_queue_create("thumbnail downloader", NULL);
+    dispatch_async(thumbnailDownloadQueue, ^{
+        NSURL *thumbnailURL = [FlickrFetcher urlForPhoto:photo format:FlickrPhotoFormatSquare];
+        NSData *thumbnailData = [NSData dataWithContentsOfURL:thumbnailURL];
+        UIImage *thumbnail = [UIImage imageWithData:thumbnailData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [(UIImageView *)aView.leftCalloutAccessoryView setImage:thumbnail];
+        });
+    });
+    dispatch_release(thumbnailDownloadQueue);
 }
 
 @end

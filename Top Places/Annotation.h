@@ -11,10 +11,12 @@
 
 @interface Annotation : NSObject <MKAnnotation>
 
-+ (Annotation *)annotationWithTitle:(NSString *)title subtitle:(NSString *)subtitle coordinate:(CLLocationCoordinate2D)coordinate;
++ (Annotation *)annotationWithTitle:(NSString *)title subtitle:(NSString *)subtitle coordinate:(CLLocationCoordinate2D)coordinate forObject:(id)anObject;
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *subtitle;
 @property (nonatomic) CLLocationCoordinate2D coordinate;
+
+@property (nonatomic, strong) id referenceObject;   //  places and photos are examples
 
 @end
