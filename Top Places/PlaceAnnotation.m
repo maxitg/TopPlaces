@@ -30,7 +30,7 @@
 - (NSString *)subtitle
 {
     NSArray *placeComponents = [[self.place objectForKey:FLICKR_PLACE_NAME] componentsSeparatedByString:@", "];
-    return [[placeComponents subarrayWithRange:NSRangeFromString([NSString stringWithFormat:@"1 %d", [placeComponents count]])] componentsJoinedByString:@", "];
+    return [[placeComponents subarrayWithRange:NSRangeFromString([NSString stringWithFormat:@"1 %d", [placeComponents count] - 1])] componentsJoinedByString:@", "];
 }
 
 - (CLLocationCoordinate2D)coordinate

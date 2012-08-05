@@ -9,6 +9,7 @@
 #import "TopPlacesViewController.h"
 #import "FlickrFetcher.h"
 #import "PhotoListViewController.h"
+#import "PlaceAnnotation.h"
 
 @interface TopPlacesViewController () <UITableViewDataSource>
 
@@ -31,6 +32,15 @@
     if (_topPlaces != topPlaces) {
         _topPlaces = topPlaces;
         [self.tableView reloadData];
+        
+        [self.mapView removeAnnotations:self.mapView.annotations];
+        NSMutableArray *annotations = [[NSMutableArray alloc] init];
+        for (int i = 0; i < [topPlaces count]; i++) {
+            for (NSDictionary *place in [[topPlaces objectAtIndex:i] objectForKey:@"Places"]) {
+                [annotations addObject:[PlaceAnnotation annotationForPlace:place]];
+            }
+        }
+        [self.mapView addAnnotations:annotations];
     }
 }
 
