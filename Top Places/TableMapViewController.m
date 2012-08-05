@@ -8,7 +8,7 @@
 
 #import "TableMapViewController.h"
 
-#define DEFAULTS_PRESENTATION_TYPE @"Presentation Type"
+#define DEFAULTS_PRESENTATION_TYPE_PREFIX @"Presentation Type "
 
 @interface TableMapViewController ()
 
@@ -20,6 +20,11 @@
 @synthesize mapView = _mapView;
 @synthesize tableMapSegmentedControl = _tableMapSegmentedControl;
 
+- (NSString *)defaultsPresentationTypeKey
+{
+    return [DEFAULTS_PRESENTATION_TYPE_PREFIX stringByAppendingString:[[self class] description]];
+}
+
 #pragma mark - Lifecycle
 
 - (void)viewDidLoad
@@ -29,7 +34,7 @@
     //  Loading table or map defaults from userDefaults
     
     NSUserDefaults *userDefaults = [[NSUserDefaults alloc] init];
-    self.tableMapSegmentedControl.selectedSegmentIndex = [[userDefaults objectForKey:DEFAULTS_PRESENTATION_TYPE] intValue];
+    self.tableMapSegmentedControl.selectedSegmentIndex = [[userDefaults objectForKey:[self defaultsPresentationTypeKey]] intValue];
     [self tableMapSegmentedControlValueChanged];
 }
 
@@ -45,7 +50,7 @@
     }
     
     NSUserDefaults *userDefaults = [[NSUserDefaults alloc] init];
-    [userDefaults setObject:[NSNumber numberWithInt:self.tableMapSegmentedControl.selectedSegmentIndex] forKey:DEFAULTS_PRESENTATION_TYPE];
+    [userDefaults setObject:[NSNumber numberWithInt:self.tableMapSegmentedControl.selectedSegmentIndex] forKey:[self defaultsPresentationTypeKey]];
     [userDefaults synchronize];
 }
 
