@@ -178,6 +178,7 @@
         
         if (!photoData) {
             NSURL *photoURL = [FlickrFetcher urlForPhoto:aPhoto format:FlickrPhotoFormatLarge];
+            NSLog(@"Queuering %@", photoURL);
             photoData = [NSData dataWithContentsOfURL:photoURL];
             [self addPhotoToCache:aPhoto withData:photoData];
         }
@@ -289,6 +290,7 @@
     dispatch_queue_t thumbnailDownloadQueue = dispatch_queue_create("thumbnail downloader", NULL);
     dispatch_async(thumbnailDownloadQueue, ^{
         NSURL *thumbnailURL = [FlickrFetcher urlForPhoto:photo format:FlickrPhotoFormatSquare];
+        NSLog(@"Queuering %@", thumbnailURL);
         NSData *thumbnailData = [NSData dataWithContentsOfURL:thumbnailURL];
         UIImage *thumbnail = [UIImage imageWithData:thumbnailData];
         dispatch_async(dispatch_get_main_queue(), ^{
