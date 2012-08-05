@@ -6,14 +6,14 @@
 //  Copyright (c) 2012 Maxim Piskunov. All rights reserved.
 //
 
-#import "RecentPhotoListTableViewController.h"
-#import "PhotoListTableViewController.h"
+#import "RecentPhotoListViewController.h"
+#import "PhotoListViewController.h"
 
-@interface RecentPhotoListTableViewController ()
+@interface RecentPhotoListViewController ()
 
 @end
 
-@implementation RecentPhotoListTableViewController
+@implementation RecentPhotoListViewController
 
 - (void)viewWillAppear:(BOOL)animated
 {

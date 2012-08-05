@@ -1,23 +1,24 @@
 //
-//  PlaceTopPhotosTableViewController.m
+//  PhotoListViewController.m
 //  Top Places
 //
-//  Created by Maxim Piskunov on 28.07.2012.
+//  Created by Maxim Piskunov on 05.08.2012.
 //  Copyright (c) 2012 Maxim Piskunov. All rights reserved.
 //
 
-#import "PhotoListTableViewController.h"
+#import "PhotoListViewController.h"
 #import "PhotoViewController.h"
 #import "FlickrFetcher.h"
 
-@interface PhotoListTableViewController ()
+#define MAX_CACHE_SIZE 10485760
+
+@interface PhotoListViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @end
 
-@implementation PhotoListTableViewController
+@implementation PhotoListViewController
 
 @synthesize photos = _photos;
-@synthesize spinner = _spinner;
 
 #pragma mark - Setters & getters
 
@@ -29,22 +30,22 @@
     }
 }
 
-- (UIActivityIndicatorView*)spinner
-{
-    if (!_spinner) {
-        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        spinner.hidesWhenStopped = YES;
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
-        _spinner = spinner;
-    }
-    return _spinner;
-}
-
 #pragma mark - Lifecycle
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (void)viewDidLoad
 {
-    return ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone || interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    [super viewDidLoad];
+    
+    //  Setting delegates
+    
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
 }
 
 #pragma mark - Segues
@@ -62,9 +63,9 @@
 {
     NSFileManager *fileManager = [[NSFileManager alloc] init];
     NSURL *cachesDirectoryURL = [self photoCacheDirectoryURL];
-        
+    
     NSURL *photoURL = [cachesDirectoryURL URLByAppendingPathComponent:[photoDescription objectForKey:FLICKR_PHOTO_ID]];
-    [photoData writeToURL:photoURL atomically:NO];
+    [photoData writeToURL:photoURL atomically:YES];
     
     NSDirectoryEnumerator *cachesDirectoryEnumerator = [fileManager enumeratorAtPath:[cachesDirectoryURL path]];
     NSString *photoPath;
@@ -85,7 +86,7 @@
     
     [cachesDirectoryContent sortUsingDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"Date" ascending:NO]]];
     
-    while (totalSize > 10485760) {
+    while (totalSize > MAX_CACHE_SIZE) {
         [fileManager removeItemAtPath:[[cachesDirectoryContent lastObject] objectForKey:@"Path"] error:nil];
         totalSize -= [[[cachesDirectoryContent lastObject] objectForKey:@"Size"] intValue];
         [cachesDirectoryContent removeLastObject];
@@ -105,7 +106,9 @@
 - (void)setUpPhotoViewController:(PhotoViewController*)photoViewController forSelectedCell:(UITableViewCell *)cell
 {
     NSDictionary *selectedPhotoDescription = [self.photos objectAtIndex:[self.tableView indexPathForCell:cell].row];
-    [photoViewController.spinner startAnimating];
+    photoViewController.isLoading = YES;
+    photoViewController.presentedPhotoID = [selectedPhotoDescription objectForKey:FLICKR_PHOTO_ID];
+    photoViewController.title = cell.textLabel.text;
     
     dispatch_queue_t photoDownloadQueue = dispatch_queue_create("photo downloader", NULL);
     dispatch_async(photoDownloadQueue, ^{
@@ -117,14 +120,13 @@
             photoData = [NSData dataWithContentsOfURL:photoURL];
             [self addPhotoToCache:selectedPhotoDescription withData:photoData];
         }
-        __block UIImage *photo = [UIImage imageWithData:photoData];
+        UIImage *photo = [UIImage imageWithData:photoData];
         photoData = nil;
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            if ([cell isSelected]) {    //  caution. causes a bug in recent photos
+            if ([photoViewController.presentedPhotoID isEqualToString:[selectedPhotoDescription objectForKey:FLICKR_PHOTO_ID]]) {    //  caution. causes a bug in recent photos
                 [photoViewController setPhoto:photo];
-                photo = nil;
-                [photoViewController.spinner stopAnimating];
+                photoViewController.isLoading = NO;
                 
                 NSUserDefaults *userDefaults = [[NSUserDefaults alloc] init];
                 NSMutableArray *recentPhotos = [[userDefaults valueForKey:DEFAULTS_RECENT] mutableCopy] ? : [[NSMutableArray alloc] init];
@@ -156,15 +158,6 @@
     [photoViewController setTitle:[[cell textLabel] text]];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    //  Only for iPhone
-    
-    if ([segue.identifier isEqualToString:@"Show Photo"]) {
-        [self setUpPhotoViewController:segue.destinationViewController forSelectedCell:sender];
-    }
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -179,14 +172,14 @@
     cell.textLabel.text = [[self.photos objectAtIndex:indexPath.row] objectForKey:FLICKR_PHOTO_TITLE];
     cell.detailTextLabel.text = [[self.photos objectAtIndex:indexPath.row] valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
     
-        //  If no title
+    //  If no title
     
     if ([cell.textLabel.text isEqualToString:@""]) {
         cell.textLabel.text = cell.detailTextLabel.text;
         cell.detailTextLabel.text = @"";
     }
     
-        //  If no description
+    //  If no description
     
     if ([cell.textLabel.text isEqualToString:@""]) {
         cell.textLabel.text = @"Unknown";
@@ -201,8 +194,9 @@
 {
     //  Only for iPad
     
-    [self setUpPhotoViewController:[self.splitViewController.viewControllers objectAtIndex:1] forSelectedCell:[self.tableView cellForRowAtIndexPath:indexPath]];
-    [[[self.splitViewController.viewControllers objectAtIndex:1] splitViewPopoverController] dismissPopoverAnimated:YES];
+    PhotoViewController *photoViewController = (PhotoViewController *)[[[self.splitViewController.viewControllers objectAtIndex:1] viewControllers] objectAtIndex:0];
+    [self setUpPhotoViewController:photoViewController forSelectedCell:[self.tableView cellForRowAtIndexPath:indexPath]];
+    [[photoViewController splitViewPopoverController] dismissPopoverAnimated:YES];
 }
 
 @end

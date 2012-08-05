@@ -6,8 +6,8 @@
 //  Copyright (c) 2012 Maxim Piskunov. All rights reserved.
 //
 
-#import "PhotoListTableViewController.h"
+#import "PhotoListViewController.h"
 
-@interface RecentPhotoListTableViewController : PhotoListTableViewController
+@interface RecentPhotoListViewController : PhotoListViewController
 
 @end

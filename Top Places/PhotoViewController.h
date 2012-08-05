@@ -7,19 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LoadingViewPresenterViewController.h"
 
-@interface PhotoViewController : UIViewController
+@interface PhotoViewController : LoadingViewPresenterViewController
 
-@property (nonatomic, strong) UIImage *photo;   //  model
+@property (nonatomic, strong) UIImage *photo;
+@property (nonatomic, strong) NSString *presentedPhotoID;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *titleBarButtonItem;
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *splitViewBarButtonItem;
 
 @property (nonatomic, weak) UIPopoverController *splitViewPopoverController;
-
-@property (nonatomic, strong) UIActivityIndicatorView *spinner;
 
 @end

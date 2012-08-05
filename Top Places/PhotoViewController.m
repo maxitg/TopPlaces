@@ -18,19 +18,11 @@
 
 @synthesize imageView = _imageView;
 @synthesize scrollView = _scrollView;
-@synthesize toolbar = _toolbar;
-@synthesize titleBarButtonItem = _titleBarButtonItem;
 @synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
 
 @synthesize splitViewPopoverController = _splitViewPopoverController;
 
 #pragma mark - Setters & getters
-
-- (void)setTitle:(NSString *)title
-{
-    [super setTitle:title];
-    self.titleBarButtonItem.title = title;
-}
 
 - (void)setPhoto:(UIImage *)photo
 {
@@ -41,32 +33,21 @@
     }
 }
 
-- (UIActivityIndicatorView*)spinner
-{
-    if (!_spinner) {
-        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        spinner.hidesWhenStopped = YES;
-        UIBarButtonItem *spinnerBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
-        
-            //  For iPhone
-        self.navigationItem.rightBarButtonItem = spinnerBarButtonItem;
-
-            //  For iPad
-        NSMutableArray *toolbarItems = [self.toolbar.items mutableCopy];
-        [toolbarItems addObject:spinnerBarButtonItem];
-        self.toolbar.items = [toolbarItems copy];
-        
-        _spinner = spinner;
-    }
-    return _spinner;
-}
-
 #pragma mark - Lifecycle
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (!self.imageView.image) self.imageView.image = self.photo;
+}
 
 - (void)viewWillLayoutSubviews
 {
+    self.loadingView.center = self.view.center;
+    
+    [super viewWillLayoutSubviews];
+    
     if (!self.photo) return;
-    if (!self.imageView.image) self.imageView.image = self.photo;
     
     self.scrollView.minimumZoomScale = 1.;
     self.scrollView.maximumZoomScale = 1.;
@@ -93,16 +74,9 @@
 {
     [self setImageView:nil];
     [self setScrollView:nil];
-    [self setToolbar:nil];
-    [self setTitleBarButtonItem:nil];
     [self setSplitViewBarButtonItem:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone || interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
 #pragma mark UIScrollViewDelegate
@@ -116,18 +90,14 @@
 
 - (void)splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)barButtonItem forPopoverController:(UIPopoverController *)pc
 {
-    NSMutableArray *toolbarButtons = [[self.toolbar items] mutableCopy];
     barButtonItem.title = @"Top Places";
-    [toolbarButtons insertObject:barButtonItem atIndex:0];
-    self.toolbar.items = [toolbarButtons copy];
+    self.navigationItem.leftBarButtonItem = barButtonItem;
     self.splitViewPopoverController = pc;
 }
 
 - (void)splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
 {
-    NSMutableArray *toolbarButtons = [[self.toolbar items] mutableCopy];
-    [toolbarButtons removeObject:barButtonItem];
-    self.toolbar.items = [toolbarButtons copy];
+    self.navigationItem.leftBarButtonItem = nil;
     self.splitViewPopoverController = nil;
 }
 
