@@ -9,6 +9,7 @@
 #import "PhotoListViewController.h"
 #import "PhotoViewController.h"
 #import "FlickrFetcher.h"
+#import "Annotation.h"
 
 #define MAX_CACHE_SIZE 10485760
 
@@ -20,6 +21,37 @@
 
 @synthesize photos = _photos;
 
+#pragma mark - Photo information helpers
+
+- (NSString *)titleForPhoto:(NSDictionary *)photo
+{
+    NSString *title = [photo objectForKey:FLICKR_PHOTO_TITLE];
+    if ([title isEqualToString:@""]) {
+        title = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
+    }
+    if ([title isEqualToString:@""]) {
+        title = @"Unknown";
+    }
+    return title;
+}
+
+- (NSString *)subtitleForPhoto:(NSDictionary *)photo
+{
+    NSString *subtitle = [photo objectForKey:FLICKR_PHOTO_DESCRIPTION];
+    if ([[photo objectForKey:FLICKR_PHOTO_TITLE] isEqualToString:@""]) {
+        subtitle = @"";
+    }
+    return subtitle;
+}
+
+- (CLLocationCoordinate2D)coordinateForPhoto:(NSDictionary *)photo
+{
+    CLLocationCoordinate2D coordinate;
+    coordinate.longitude = [[photo objectForKey:FLICKR_LONGITUDE] doubleValue];
+    coordinate.latitude = [[photo objectForKey:FLICKR_LATITUDE] doubleValue];
+    return coordinate;
+}
+
 #pragma mark - Setters & getters
 
 - (void)setPhotos:(NSArray *)photos
@@ -27,6 +59,13 @@
     if (photos != _photos) {
         _photos = photos;
         [self.tableView reloadData];
+        
+        [self.mapView removeAnnotations:self.mapView.annotations];
+        NSMutableArray *annotations = [[NSMutableArray alloc] init];
+        for (NSDictionary *photo in self.photos) {
+            [annotations addObject:[Annotation annotationWithTitle:[self titleForPhoto:photo] subtitle:[self subtitleForPhoto:photo] coordinate:[self coordinateForPhoto:photo]]];
+        }
+        [self.mapView addAnnotations:annotations];
     }
 }
 
@@ -189,21 +228,9 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Photo Description"];
     
-    cell.textLabel.text = [[self.photos objectAtIndex:indexPath.row] objectForKey:FLICKR_PHOTO_TITLE];
-    cell.detailTextLabel.text = [[self.photos objectAtIndex:indexPath.row] valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
-    
-    //  If no title
-    
-    if ([cell.textLabel.text isEqualToString:@""]) {
-        cell.textLabel.text = cell.detailTextLabel.text;
-        cell.detailTextLabel.text = @"";
-    }
-    
-    //  If no description
-    
-    if ([cell.textLabel.text isEqualToString:@""]) {
-        cell.textLabel.text = @"Unknown";
-    }
+    NSDictionary *selectedPhoto = [self.photos objectAtIndex:indexPath.row];
+    cell.textLabel.text = [self titleForPhoto:selectedPhoto];
+    cell.detailTextLabel.text = [self subtitleForPhoto:selectedPhoto];
     
     return cell;
 }
