@@ -32,6 +32,17 @@
 
 #pragma mark - Lifecycle
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    PhotoViewController *photoViewController = [[[self.splitViewController.viewControllers objectAtIndex:1] viewControllers] objectAtIndex:0];
+    NSString *selectedPhotoID = [[self.photos objectAtIndex:self.tableView.indexPathForSelectedRow.row] objectForKey:FLICKR_PHOTO_ID];
+    if (![photoViewController.presentedPhotoID isEqualToString:selectedPhotoID] || !self.splitViewController) {
+        [self.tableView deselectRowAtIndexPath:self.tableView.indexPathForSelectedRow animated:animated];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -158,6 +169,15 @@
     [photoViewController setTitle:[[cell textLabel] text]];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    //  Only for iPhone
+    
+    if ([segue.identifier isEqualToString:@"Show Photo"]) {
+        [self setUpPhotoViewController:segue.destinationViewController forSelectedCell:sender];
+    }
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -194,9 +214,11 @@
 {
     //  Only for iPad
     
-    PhotoViewController *photoViewController = (PhotoViewController *)[[[self.splitViewController.viewControllers objectAtIndex:1] viewControllers] objectAtIndex:0];
-    [self setUpPhotoViewController:photoViewController forSelectedCell:[self.tableView cellForRowAtIndexPath:indexPath]];
-    [[photoViewController splitViewPopoverController] dismissPopoverAnimated:YES];
+    if (self.splitViewController) {
+        PhotoViewController *photoViewController = (PhotoViewController *)[[[self.splitViewController.viewControllers objectAtIndex:1] viewControllers] objectAtIndex:0];
+        [self setUpPhotoViewController:photoViewController forSelectedCell:[self.tableView cellForRowAtIndexPath:indexPath]];
+        [[photoViewController splitViewPopoverController] dismissPopoverAnimated:YES];
+    }
 }
 
 @end
