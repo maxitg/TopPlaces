@@ -22,7 +22,7 @@
 		697D73D515C405BB0079962C /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 697D73D315C405BB0079962C /* MainStoryboard_iPad.storyboard */; };
 		697D73E115C406870079962C /* FlickrFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 697D73E015C406870079962C /* FlickrFetcher.m */; };
 		699DDF6015C427B900020F4E /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 699DDF5F15C427B900020F4E /* PhotoViewController.m */; };
-		69DC136A15CE908700B690C1 /* PlaceAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DC136915CE908600B690C1 /* PlaceAnnotation.m */; };
+		69DC136A15CE908700B690C1 /* Annotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 69DC136915CE908600B690C1 /* Annotation.m */; };
 		69F508CF15CE3CD900657B3B /* LoadingViewPresenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F508CE15CE3CD900657B3B /* LoadingViewPresenterViewController.m */; };
 		69F508D315CE5BC200657B3B /* PhotoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F508D215CE5BC200657B3B /* PhotoListViewController.m */; };
 		69F508D615CE5D2C00657B3B /* TableMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 69F508D515CE5D2C00657B3B /* TableMapViewController.m */; };
@@ -54,8 +54,8 @@
 		697D73E015C406870079962C /* FlickrFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrFetcher.m; sourceTree = "<group>"; };
 		699DDF5E15C427B900020F4E /* PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
 		699DDF5F15C427B900020F4E /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
-		69DC136815CE908600B690C1 /* PlaceAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceAnnotation.h; sourceTree = "<group>"; };
-		69DC136915CE908600B690C1 /* PlaceAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceAnnotation.m; sourceTree = "<group>"; };
+		69DC136815CE908600B690C1 /* Annotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Annotation.h; sourceTree = "<group>"; };
+		69DC136915CE908600B690C1 /* Annotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Annotation.m; sourceTree = "<group>"; };
 		69F508CD15CE3CD900657B3B /* LoadingViewPresenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingViewPresenterViewController.h; sourceTree = "<group>"; };
 		69F508CE15CE3CD900657B3B /* LoadingViewPresenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingViewPresenterViewController.m; sourceTree = "<group>"; };
 		69F508D115CE5BC100657B3B /* PhotoListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoListViewController.h; sourceTree = "<group>"; };
@@ -178,8 +178,8 @@
 		69DC136B15CE908E00B690C1 /* Map Annotation */ = {
 			isa = PBXGroup;
 			children = (
-				69DC136815CE908600B690C1 /* PlaceAnnotation.h */,
-				69DC136915CE908600B690C1 /* PlaceAnnotation.m */,
+				69DC136815CE908600B690C1 /* Annotation.h */,
+				69DC136915CE908600B690C1 /* Annotation.m */,
 			);
 			name = "Map Annotation";
 			sourceTree = "<group>";
@@ -273,7 +273,7 @@
 				69F508CF15CE3CD900657B3B /* LoadingViewPresenterViewController.m in Sources */,
 				69F508D315CE5BC200657B3B /* PhotoListViewController.m in Sources */,
 				69F508D615CE5D2C00657B3B /* TableMapViewController.m in Sources */,
-				69DC136A15CE908700B690C1 /* PlaceAnnotation.m in Sources */,
+				69DC136A15CE908700B690C1 /* Annotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

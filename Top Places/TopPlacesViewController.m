@@ -9,7 +9,7 @@
 #import "TopPlacesViewController.h"
 #import "FlickrFetcher.h"
 #import "PhotoListViewController.h"
-#import "PlaceAnnotation.h"
+#import "Annotation.h"
 
 @interface TopPlacesViewController () <UITableViewDataSource>
 
@@ -37,7 +37,7 @@
         NSMutableArray *annotations = [[NSMutableArray alloc] init];
         for (int i = 0; i < [topPlaces count]; i++) {
             for (NSDictionary *place in [[topPlaces objectAtIndex:i] objectForKey:@"Places"]) {
-                [annotations addObject:[PlaceAnnotation annotationForPlace:place]];
+                [annotations addObject:[Annotation annotationWithTitle:[self cityForPlace:place] subtitle:[self placeDetailsForPlace:place] coordinate:[self coordinateForPlace:place]]];
             }
         }
         [self.mapView addAnnotations:annotations];
@@ -69,6 +69,14 @@
     detailsRange.location = 1;
     detailsRange.length = [placeComponents count] - 1;
     return [[placeComponents subarrayWithRange:detailsRange] componentsJoinedByString:@", "];
+}
+
+- (CLLocationCoordinate2D)coordinateForPlace:(NSDictionary *)aPlace
+{
+    CLLocationCoordinate2D location;
+    location.latitude = [[aPlace objectForKey:FLICKR_LATITUDE] doubleValue];
+    location.longitude = [[aPlace objectForKey:FLICKR_LONGITUDE] doubleValue];
+    return location;
 }
 
 #pragma mark - Lifecycle
