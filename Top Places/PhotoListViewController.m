@@ -37,7 +37,7 @@
 
 - (NSString *)subtitleForPhoto:(NSDictionary *)photo
 {
-    NSString *subtitle = [photo objectForKey:FLICKR_PHOTO_DESCRIPTION];
+    NSString *subtitle = [photo valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
     if ([[photo objectForKey:FLICKR_PHOTO_TITLE] isEqualToString:@""]) {
         subtitle = @"";
     }
