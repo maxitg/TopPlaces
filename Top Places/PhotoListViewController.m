@@ -66,6 +66,7 @@
             [annotations addObject:[Annotation annotationWithTitle:[self titleForPhoto:photo] subtitle:[self subtitleForPhoto:photo] coordinate:[self coordinateForPhoto:photo] forObject:photo]];
         }
         [self.mapView addAnnotations:annotations];
+        [self updateMapRegion];
     }
 }
 
@@ -154,28 +155,37 @@
     return photoData;
 }
 
-- (void)setUpPhotoViewController:(PhotoViewController*)photoViewController forSelectedCell:(UITableViewCell *)cell
+- (void)showPhoto:(NSDictionary *)aPhoto sender:(id)sender
 {
-    NSDictionary *selectedPhotoDescription = [self.photos objectAtIndex:[self.tableView indexPathForCell:cell].row];
+    if (self.splitViewController) {
+        PhotoViewController *photoViewController = [[[[self.splitViewController viewControllers] objectAtIndex:1] viewControllers] objectAtIndex:0];
+        [self setUpPhotoViewController:photoViewController forPhoto:aPhoto];
+    } else {
+        [self performSegueWithIdentifier:@"Show Photo" sender:sender];
+    }
+}
+
+- (void)setUpPhotoViewController:(PhotoViewController*)photoViewController forPhoto:(NSDictionary *)aPhoto
+{
     photoViewController.isLoading = YES;
-    photoViewController.presentedPhotoID = [selectedPhotoDescription objectForKey:FLICKR_PHOTO_ID];
-    photoViewController.title = cell.textLabel.text;
+    photoViewController.presentedPhotoID = [aPhoto objectForKey:FLICKR_PHOTO_ID];
+    photoViewController.title = [self titleForPhoto:aPhoto];
     
     dispatch_queue_t photoDownloadQueue = dispatch_queue_create("photo downloader", NULL);
     dispatch_async(photoDownloadQueue, ^{
         
-        NSData *photoData = [self photoFromCache:selectedPhotoDescription];
+        NSData *photoData = [self photoFromCache:aPhoto];
         
         if (!photoData) {
-            NSURL *photoURL = [FlickrFetcher urlForPhoto:selectedPhotoDescription format:FlickrPhotoFormatLarge];
+            NSURL *photoURL = [FlickrFetcher urlForPhoto:aPhoto format:FlickrPhotoFormatLarge];
             photoData = [NSData dataWithContentsOfURL:photoURL];
-            [self addPhotoToCache:selectedPhotoDescription withData:photoData];
+            [self addPhotoToCache:aPhoto withData:photoData];
         }
         UIImage *photo = [UIImage imageWithData:photoData];
         photoData = nil;
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            if ([photoViewController.presentedPhotoID isEqualToString:[selectedPhotoDescription objectForKey:FLICKR_PHOTO_ID]]) {    //  caution. causes a bug in recent photos
+            if ([photoViewController.presentedPhotoID isEqualToString:[aPhoto objectForKey:FLICKR_PHOTO_ID]]) {
                 [photoViewController setPhoto:photo];
                 photoViewController.isLoading = NO;
                 
@@ -185,18 +195,18 @@
                 BOOL photoIsNew = YES;
                 NSDictionary *oldPhoto;
                 for (NSDictionary *photoDescription in recentPhotos) {
-                    if ([[photoDescription objectForKey:FLICKR_PHOTO_ID] isEqual:[selectedPhotoDescription objectForKey:FLICKR_PHOTO_ID]]) {
+                    if ([[photoDescription objectForKey:FLICKR_PHOTO_ID] isEqual:[aPhoto objectForKey:FLICKR_PHOTO_ID]]) {
                         photoIsNew = NO;
                         oldPhoto = photoDescription;
                     }
                 }
                 
                 if (photoIsNew) {
-                    [recentPhotos insertObject:selectedPhotoDescription atIndex:0];
+                    [recentPhotos insertObject:aPhoto atIndex:0];
                     if ([recentPhotos count] > 20) [recentPhotos removeLastObject];
                 } else {
                     [recentPhotos removeObject:oldPhoto];
-                    [recentPhotos insertObject:selectedPhotoDescription atIndex:0];
+                    [recentPhotos insertObject:aPhoto atIndex:0];
                 }
                 
                 [userDefaults setValue:[recentPhotos copy] forKey:DEFAULTS_RECENT];
@@ -205,8 +215,6 @@
         });
         
     });
-    
-    [photoViewController setTitle:[[cell textLabel] text]];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -214,7 +222,15 @@
     //  Only for iPhone
     
     if ([segue.identifier isEqualToString:@"Show Photo"]) {
-        [self setUpPhotoViewController:segue.destinationViewController forSelectedCell:sender];
+        NSDictionary *selectedPhoto;
+        if ([sender isKindOfClass:[UITableViewCell class]]) {
+            selectedPhoto = [self.photos objectAtIndex:[self.tableView indexPathForCell:sender].row];
+        } else if ([sender isKindOfClass:[MKAnnotationView class]]) {
+            Annotation *annotation = [sender annotation];
+            selectedPhoto = annotation.referenceObject;
+        }
+        
+        [self setUpPhotoViewController:segue.destinationViewController forPhoto:selectedPhoto];
     }
 }
 
@@ -239,23 +255,21 @@
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    //  Only for iPad
+{    
+    [self showPhoto:[self.photos objectAtIndex:indexPath.row] sender:[tableView cellForRowAtIndexPath:indexPath]];
     
-    if (self.splitViewController) {
-        PhotoViewController *photoViewController = (PhotoViewController *)[[[self.splitViewController.viewControllers objectAtIndex:1] viewControllers] objectAtIndex:0];
-        [self setUpPhotoViewController:photoViewController forSelectedCell:[self.tableView cellForRowAtIndexPath:indexPath]];
-        [[photoViewController splitViewPopoverController] dismissPopoverAnimated:YES];
-    }
+    //  Only for iPad
+    PhotoViewController *photoViewController = (PhotoViewController *)[[[self.splitViewController.viewControllers objectAtIndex:1] viewControllers] objectAtIndex:0];
+    [[photoViewController splitViewPopoverController] dismissPopoverAnimated:YES];
 }
 
 #pragma mark - MKMapViewDelegate
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
-    MKAnnotationView *aView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"Place Annotation"];
+    MKAnnotationView *aView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"Photo Annotation"];
     if (!aView) {
-        aView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Place Annotation"];
+        aView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Photo Annotation"];
         aView.canShowCallout = YES;
         aView.leftCalloutAccessoryView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
         aView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
@@ -282,6 +296,12 @@
         });
     });
     dispatch_release(thumbnailDownloadQueue);
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+    Annotation *annotation = view.annotation;
+    [self showPhoto:annotation.referenceObject sender:view];
 }
 
 @end

@@ -16,4 +16,6 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *tableMapSegmentedControl;
 
+- (void)updateMapRegion;
+
 @end

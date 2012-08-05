@@ -34,6 +34,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+    
     NSMutableArray *updatedPhotos = [self.photos mutableCopy];
     [updatedPhotos removeObjectAtIndex:indexPath.row];
     [updatedPhotos insertObject:[self.photos objectAtIndex:indexPath.row] atIndex:0];
@@ -44,7 +46,7 @@
     
     self.isPhotoPresented = YES;
     
-    [super tableView:tableView didSelectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    
 }
 
 @end

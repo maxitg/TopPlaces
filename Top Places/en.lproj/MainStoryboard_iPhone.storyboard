@@ -201,9 +201,6 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <connections>
-                                            <segue destination="KVN-dZ-gPk" kind="push" identifier="Show Photo" id="dKu-wt-Wno"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -251,6 +248,7 @@
                         <outlet property="mapView" destination="EC3-f7-rSv" id="cgP-bQ-pGN"/>
                         <outlet property="tableMapSegmentedControl" destination="qNb-vE-5CE" id="seM-WI-Gnf"/>
                         <outlet property="tableView" destination="X2B-vP-dnK" id="I0Q-89-Yh1"/>
+                        <segue destination="KVN-dZ-gPk" kind="push" identifier="Show Photo" id="EtC-wX-A6n"/>
                     </connections>
                 </viewController>
             </objects>
@@ -298,9 +296,6 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <connections>
-                                            <segue destination="KVN-dZ-gPk" kind="push" identifier="Show Photo" id="Dfm-AW-21R"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -348,6 +343,7 @@
                         <outlet property="mapView" destination="1yB-bL-Uyn" id="GVU-aA-17H"/>
                         <outlet property="tableMapSegmentedControl" destination="h0J-9Z-eax" id="8r7-qr-OVK"/>
                         <outlet property="tableView" destination="PYY-Cg-kLj" id="CdO-Gu-A9W"/>
+                        <segue destination="KVN-dZ-gPk" kind="push" identifier="Show Photo" id="BWb-kN-d1a"/>
                     </connections>
                 </viewController>
             </objects>
@@ -357,7 +353,7 @@
         <scene sceneID="qlG-xP-BVe">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="APm-xc-D1f" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="KVN-dZ-gPk" customClass="PhotoViewController" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="KVN-dZ-gPk" customClass="PhotoViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="loB-Yu-iGX">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -455,6 +451,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="dKu-wt-Wno"/>
+        <segue reference="EtC-wX-A6n"/>
     </inferredMetricsTieBreakers>
 </document>

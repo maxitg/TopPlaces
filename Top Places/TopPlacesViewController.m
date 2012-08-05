@@ -11,7 +11,7 @@
 #import "PhotoListViewController.h"
 #import "Annotation.h"
 
-@interface TopPlacesViewController () <UITableViewDataSource>
+@interface TopPlacesViewController () <UITableViewDataSource, MKMapViewDelegate>
 
 @property (nonatomic, strong) NSArray* topPlaces;   //  of dictionaries for each country
 
@@ -41,6 +41,7 @@
             }
         }
         [self.mapView addAnnotations:annotations];
+        [self updateMapRegion];
     }
 }
 
@@ -93,6 +94,7 @@
     //  Setting delegates
     
     self.tableView.dataSource = self;
+    self.mapView.delegate = self;
     
     //  Loading topPlaces from Flickr
     
@@ -178,8 +180,14 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"Show Photos In Place"]) {
-        NSIndexPath *senderIndexPath = [self.tableView indexPathForCell:sender];
-        NSDictionary *selectedPlace = [[[self.topPlaces objectAtIndex:senderIndexPath.section] objectForKey:@"Places"] objectAtIndex:senderIndexPath.row];
+        NSDictionary *selectedPlace;
+        if ([sender isKindOfClass:[UITableViewCell class]]) {
+            NSIndexPath *senderIndexPath = [self.tableView indexPathForCell:sender];
+            selectedPlace = [[[self.topPlaces objectAtIndex:senderIndexPath.section] objectForKey:@"Places"] objectAtIndex:senderIndexPath.row];
+        } else if ([sender isKindOfClass:[MKAnnotationView class]]) {
+            Annotation *annotation = [sender annotation];
+            selectedPlace = annotation.referenceObject;
+        }
         
         [segue.destinationViewController setIsLoading:YES];
         dispatch_queue_t photoListDownloadQueue = dispatch_queue_create("photo list downloder", NULL);
@@ -192,8 +200,29 @@
         });
         dispatch_release(photoListDownloadQueue);
         
-        [segue.destinationViewController setTitle:[[sender textLabel] text]];
+        [segue.destinationViewController setTitle:[self cityForPlace:selectedPlace]];
     }
+}
+
+#pragma mark - MKMapViewDelegate
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
+{
+    MKAnnotationView *aView = [mapView dequeueReusableAnnotationViewWithIdentifier:@"Place Annotation"];
+    if (!aView) {
+        aView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"Place Annotation"];
+        aView.canShowCallout = YES;
+        aView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    }
+    
+    aView.annotation = annotation;
+    
+    return aView;
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+    [self performSegueWithIdentifier:@"Show Photos In Place" sender:view];
 }
 
 @end

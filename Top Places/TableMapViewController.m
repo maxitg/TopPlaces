@@ -7,6 +7,7 @@
 //
 
 #import "TableMapViewController.h"
+#import "Annotation.h"
 
 #define DEFAULTS_PRESENTATION_TYPE_PREFIX @"Presentation Type "
 
@@ -23,6 +24,26 @@
 - (NSString *)defaultsPresentationTypeKey
 {
     return [DEFAULTS_PRESENTATION_TYPE_PREFIX stringByAppendingString:[[self class] description]];
+}
+
+- (void)updateMapRegion
+{
+    double minLatitude, maxLatitude, minLongitude, maxLongitude;
+    minLatitude = minLongitude = +720.;
+    maxLatitude = maxLongitude = -720.;
+    for (Annotation *annotation in self.mapView.annotations) {
+        if (minLatitude > annotation.coordinate.latitude) minLatitude = annotation.coordinate.latitude;
+        if (maxLatitude < annotation.coordinate.latitude) maxLatitude = annotation.coordinate.latitude;
+        if (minLongitude > annotation.coordinate.longitude) minLongitude = annotation.coordinate.longitude;
+        if (maxLongitude < annotation.coordinate.longitude) maxLongitude = annotation.coordinate.longitude;
+    }
+    MKCoordinateRegion annotationsRegion;
+    annotationsRegion.center.latitude = (minLatitude + maxLatitude) / 2;
+    annotationsRegion.center.longitude = (minLongitude + maxLongitude) / 2;
+    annotationsRegion.span.latitudeDelta = MIN(180, (maxLatitude - minLatitude) * 1.2);
+    annotationsRegion.span.longitudeDelta = MIN(360, (maxLongitude - minLongitude) * 1.2);
+    
+    self.mapView.region = annotationsRegion;
 }
 
 #pragma mark - Lifecycle
