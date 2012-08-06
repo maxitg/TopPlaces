@@ -13,6 +13,7 @@
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="HvT-cL-IVD">
+                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
@@ -75,6 +76,18 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="387"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </mapView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="WXn-Ev-u0S">
+                                <rect key="frame" x="8" y="330" width="304" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Standard"/>
+                                    <segment title="Satellite"/>
+                                    <segment title="Hybrid"/>
+                                </segments>
+                                <connections>
+                                    <action selector="mapTypeSegmentedControlValueChanged:" destination="b4n-1l-33H" eventType="valueChanged" id="J7f-nN-oi2"/>
+                                </connections>
+                            </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="bcP-bc-gse">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="367"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -151,6 +164,7 @@
                         <outlet property="activityIndicator" destination="oF9-On-jDc" id="CmJ-iB-mM2"/>
                         <outlet property="loadingLabel" destination="8OR-XM-FIO" id="4yo-yh-Qu2"/>
                         <outlet property="loadingView" destination="pSt-ML-7qd" id="wEr-p5-dD3"/>
+                        <outlet property="mapTypeSegmentedControl" destination="WXn-Ev-u0S" id="Qc9-1F-sTX"/>
                         <outlet property="mapView" destination="ci1-xD-B5F" id="y6Y-y4-hpD"/>
                         <outlet property="tableMapSegmentedControl" destination="RqH-Zm-hGh" id="CaA-bW-oKc"/>
                         <outlet property="tableView" destination="bcP-bc-gse" id="ygP-8a-IxO"/>
@@ -172,6 +186,18 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="387"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </mapView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="8Bf-RM-CDR">
+                                <rect key="frame" x="8" y="330" width="304" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Standard"/>
+                                    <segment title="Satellite"/>
+                                    <segment title="Hybrid"/>
+                                </segments>
+                                <connections>
+                                    <action selector="mapTypeSegmentedControlValueChanged:" destination="c1U-bN-PrE" eventType="valueChanged" id="6nV-QW-roJ"/>
+                                </connections>
+                            </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="X2B-vP-dnK">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="367"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -245,6 +271,7 @@
                         <outlet property="activityIndicator" destination="4UJ-PK-7Cb" id="kDy-ek-CaM"/>
                         <outlet property="loadingLabel" destination="tJ0-af-DfB" id="tgX-h8-eLQ"/>
                         <outlet property="loadingView" destination="0cQ-a6-HTS" id="scW-Xt-wuR"/>
+                        <outlet property="mapTypeSegmentedControl" destination="8Bf-RM-CDR" id="Xnt-KJ-9dL"/>
                         <outlet property="mapView" destination="EC3-f7-rSv" id="cgP-bQ-pGN"/>
                         <outlet property="tableMapSegmentedControl" destination="qNb-vE-5CE" id="seM-WI-Gnf"/>
                         <outlet property="tableView" destination="X2B-vP-dnK" id="I0Q-89-Yh1"/>
@@ -267,6 +294,18 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="387"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </mapView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Jad-2p-AYN">
+                                <rect key="frame" x="8" y="330" width="304" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Standard"/>
+                                    <segment title="Satellite"/>
+                                    <segment title="Hybrid"/>
+                                </segments>
+                                <connections>
+                                    <action selector="mapTypeSegmentedControlValueChanged:" destination="mcz-oa-pLN" eventType="valueChanged" id="lrW-Kd-F5O"/>
+                                </connections>
+                            </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="PYY-Cg-kLj">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="367"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -340,6 +379,7 @@
                         <outlet property="activityIndicator" destination="KA4-fS-Jlp" id="Tnd-xV-gRf"/>
                         <outlet property="loadingLabel" destination="5bx-3Y-4TU" id="U6Y-Do-Bph"/>
                         <outlet property="loadingView" destination="Vcs-Nf-d4w" id="3ng-Lm-Xdu"/>
+                        <outlet property="mapTypeSegmentedControl" destination="Jad-2p-AYN" id="RNI-oc-Ulk"/>
                         <outlet property="mapView" destination="1yB-bL-Uyn" id="GVU-aA-17H"/>
                         <outlet property="tableMapSegmentedControl" destination="h0J-9Z-eax" id="8r7-qr-OVK"/>
                         <outlet property="tableView" destination="PYY-Cg-kLj" id="CdO-Gu-A9W"/>
@@ -410,47 +450,12 @@
         <image name="Recent.png" width="30" height="30"/>
         <image name="TopPlaces.png" width="30" height="30"/>
     </resources>
-    <classes>
-        <class className="LoadingViewPresenterViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoadingViewPresenterViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="loadingLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="loadingView" candidateClass="UIView"/>
-            </relationships>
-        </class>
-        <class className="PhotoListViewController" superclassName="TableMapViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoListViewController.h"/>
-        </class>
-        <class className="PhotoViewController" superclassName="LoadingViewPresenterViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="splitViewBarButtonItem" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="RecentPhotoListViewController" superclassName="PhotoListViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/RecentPhotoListViewController.h"/>
-        </class>
-        <class className="TableMapViewController" superclassName="LoadingViewPresenterViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TableMapViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="tableMapSegmentedControl" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="TopPlacesViewController" superclassName="TableMapViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TopPlacesViewController.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="EtC-wX-A6n"/>
+        <segue reference="BWb-kN-d1a"/>
     </inferredMetricsTieBreakers>
 </document>

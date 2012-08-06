@@ -20,6 +20,7 @@
 @synthesize tableView = _tableView;
 @synthesize mapView = _mapView;
 @synthesize tableMapSegmentedControl = _tableMapSegmentedControl;
+@synthesize mapTypeSegmentedControl = _mapTypeSegmentedControl;
 
 - (NSString *)defaultsPresentationTypeKey
 {
@@ -61,13 +62,16 @@
 
 #pragma mark - Table <-> Map changing methods
 
-- (IBAction)tableMapSegmentedControlValueChanged {
+- (IBAction)tableMapSegmentedControlValueChanged
+{
     if (self.tableMapSegmentedControl.selectedSegmentIndex == 0) {
         [self.mapView setHidden:YES];
+        [self.mapTypeSegmentedControl setHidden:YES];
         [self.tableView setHidden:NO];
     } else {
         [self.tableView setHidden:YES];
         [self.mapView setHidden:NO];
+        [self.mapTypeSegmentedControl setHidden:NO];
     }
     
     NSUserDefaults *userDefaults = [[NSUserDefaults alloc] init];
@@ -75,4 +79,16 @@
     [userDefaults synchronize];
 }
 
+- (IBAction)mapTypeSegmentedControlValueChanged:(UISegmentedControl *)sender
+{
+    if (sender.selectedSegmentIndex == 0) self.mapView.mapType = MKMapTypeStandard;
+    else if (sender.selectedSegmentIndex == 1) self.mapView.mapType = MKMapTypeSatellite;
+    else if (sender.selectedSegmentIndex == 2) self.mapView.mapType = MKMapTypeHybrid;
+}
+
+
+- (void)viewDidUnload {
+    [self setMapTypeSegmentedControl:nil];
+    [super viewDidUnload];
+}
 @end

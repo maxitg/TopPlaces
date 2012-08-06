@@ -257,8 +257,6 @@
     NSDictionary *selectedPhoto = [self.photos objectAtIndex:indexPath.row];
     cell.textLabel.text = [self titleForPhoto:selectedPhoto];
     cell.detailTextLabel.text = [self subtitleForPhoto:selectedPhoto];
-    
-//    cell.imageView.image = [UIImage imageNamed:@"TopPlaces.png"];
     cell.imageView.image = nil;
 
     dispatch_queue_t thumbnailDownloadQueue = dispatch_queue_create("thumbnail downloader", NULL);
